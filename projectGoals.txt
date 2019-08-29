@@ -1,0 +1,24 @@
+## Project Goals
+
+#### 1) 
+
+Written resource that gives information regarding: 
+
+* current costs of sequencing
+* amount of bases output/number of reads
+* error profile, pros and cons of each type of sequencing
+* tool benchmarking for speed, cpu hours etc.
+* genome quality that might be expected
+* Detailed examples.
+
+#### 2) 
+
+A number of reproducible pipelines that align with the suggested things above. 
+
+#### 3)
+
+A pipeline for assessing quality of a de-novo assembly 
+ 
+#### 4)
+
+ A reproducible pipeline for benchmarking tools and new techniques. 

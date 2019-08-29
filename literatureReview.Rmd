@@ -5,12 +5,65 @@ date: "27 August 2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+To do: 
+Explore strengths and weaknesses of main sequencing platforms. 
+Work out a range of relatively common ways that people use this data to get a de-novo assembly.
+Create a range of reproducible pipelines in snakemake or nextflow that use these methods for de-novo assembly. 
+Benchmark these pipelines and the associated tools using another reproducible pipeline in snakemake or nextflow and a quality metric to show how long methods take and the quality of what you get out. 
+
+
+## Introduction
+One challenge facing the bioinformatician of today is how much money to spend on what type of sequencing, how much work are they going to have to do to get a de-novo assembly out of the data (in terms of cpu time and resources) and what kind of quality can they expect. Is it better to spend a bit more money and get pacbio hifi reads but then spend a small amount of time assembling than to get nanopore and spend more time and money assembling.  
+
+## Body
+
+Sequencing Platforms and error profiles/types. Strengths, weaknesses.
+
+### Sanger
+
+### Illumina 
+
+### PacBio and Nanopore (together or not?)
+For nanopore, discuss basecalling. 
+
+Assembly tools and algorithms that deal with each type of data. 
+Long, high quality reads. 
+short reads, high quality (paired end. Maybe mention HiC here?)
+PacBio and nanopore reads. 
+PacBio HiFi reads. 
+
+How much data will you get from a particular platform and for how much money?
+
+Discuss algorithms for each one for assembly and how they work.  
+
+Problems with assembly? What can go wrong? How do the limitations of the sequencing platforms and assembly tools transfer into sequencing errors? 
+
+Genome assembly quality (with and without a reference).
+With a reference
+-Quast
+
+Without a reference. Explain why this is more difficult. 
+- N50
+- BUSCO score
+- LTR Retrotransposons (particularly for plants?)
+
+### Conclusion
+Many authors have investigated the differences in genome quality and CPU hours between a range of different assembly tools/algorithms while others focus more on ???. Nowhere is there a single resource that informs a bioinformatician of the pros and cons at every decision along the way of generating a de-novo assembly which is supported by rigorous benchmarking and the provision of reproducible pipelines. 
+
+
+```{r}
+#list of languages embedded by knitr into r
+names(knitr::knit_engines$get())
+
 ```
 
-## R Markdown 
+For example, python can be used. 
 
+```{python, engine.path = '/home/chelsea/anaconda3/bin/python3'}
+# Above code enables python version 3
+import sys
+print(sys.version)
+```
 
 
 ## References
