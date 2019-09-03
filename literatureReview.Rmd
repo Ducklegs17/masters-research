@@ -3,6 +3,7 @@ title: "Literature Review"
 author: "Chelsea Matthews"
 date: "27 August 2019"
 output: html_document
+bibliography: bibliography.bib
 ---
 
 To do: 
@@ -11,37 +12,45 @@ Work out a range of relatively common ways that people use this data to get a de
 Create a range of reproducible pipelines in snakemake or nextflow that use these methods for de-novo assembly. 
 Benchmark these pipelines and the associated tools using another reproducible pipeline in snakemake or nextflow and a quality metric to show how long methods take and the quality of what you get out. 
 
+Basically, find the 'best' way to get a desired outcome where best is optimising money and time. 
 
 ## Introduction
-One challenge facing the bioinformatician of today is how much money to spend on what type of sequencing, how much work are they going to have to do to get a de-novo assembly out of the data (in terms of cpu time and resources) and what kind of quality can they expect. Is it better to spend a bit more money and get pacbio hifi reads but then spend a small amount of time assembling than to get nanopore and spend more time and money assembling.  
+
+One challenge facing the bioinformatician of today is how much money to spend on what type of sequencing, how much work are they going to have to do to get a de-novo assembly out of the data (in terms of cpu time and resources) and what kind of quality can they expect. Is it better to spend a bit more money and get pacbio hifi reads but then spend a small amount of time assembling than to get nanopore and spend more time and money on the assembly component.  
 
 ## Body
 
-Sequencing Platforms and error profiles/types. Strengths, weaknesses.
+testRef [@sanger_1977] 
 
-### Sanger
+The three-dimensional structure of DNA was solved in 1953 (@watson_1953) but the next logical step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" (@heather_2016). The method they described in this paper is now termed Sanger Sequencing and is considered the first generation of DNA sequencing technologies. In particular, Sanger, Nickeln and Coulsons method works as follows: the sample to be sequenced, DNA nucleotides, DNA polymerase, a primer and a small number of fluorescent dyed dideoxynucleotides are combined in a test tube. The tube is heated to denature the DNA and then cooled to allow the primer to bind to the template strands. The mixture is then heated again so that, beginning at the primer, the DNA polymerase begins to add nucleotides to the template strands of DNA. This continues until one of the dideoxynucleotides are added at which point DNA synthesis of that strand halts. This process is completed a number of times and the fragments are then separated by size using capillary gel electrophoresis. As each fragment reaches the end of the capillary, the fluorescence of the terminating dideoxynucleotide under a laser determines the basecall of that position (@sanger_1977).
 
-### Illumina 
 
-### PacBio and Nanopore (together or not?)
+Second Generation - Illumina
+
+Third Generation - PacBio and Nanopore
+
+Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
+
 For nanopore, discuss basecalling. 
 
 Assembly tools and algorithms that deal with each type of data. 
 Long, high quality reads. 
 short reads, high quality (paired end. Maybe mention HiC here?)
 PacBio and nanopore reads. 
-PacBio HiFi reads. 
+PacBio HiFi reads
+   
+How much data will you get from a particular platform. 
 
-How much data will you get from a particular platform and for how much money?
+What about quality trimming? How much do you lose?
 
-Discuss algorithms for each one for assembly and how they work.  
+Discuss algorithms (sorted by algorithm type) and refer back to the different types of sequencing. 
 
 Problems with assembly? What can go wrong? How do the limitations of the sequencing platforms and assembly tools transfer into sequencing errors? 
 
 Genome assembly quality (with and without a reference).
 With a reference
 -Quast
-
+        
 Without a reference. Explain why this is more difficult. 
 - N50
 - BUSCO score
@@ -65,6 +74,11 @@ import sys
 print(sys.version)
 ```
 
+Review quality trimming tools
+
+Review tools based on algorithms used. 
+
 
 ## References
+
 
