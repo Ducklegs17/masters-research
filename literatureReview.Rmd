@@ -30,8 +30,12 @@ Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommende
 
 ## Fourth Generation
 
-The most recent major advance in the field of sequencing technology is Circular Consensus Sequencing (CCS) from PacBio where a highly accurate consensus sequence is derived from multiple passes around a single molecule [@wenger_2019] **(see Figure ??)**. This technology requires 
+The most recent major advance in the field of sequencing technology is Circular Consensus Sequencing (CCS) from PacBio where a highly accurate consensus sequence is derived from multiple passes around a single molecule [@wenger_2019] **(see Figure )**. This technology requires 
 
+
+![CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png)
+
+**Fix the pacbio github reference above**
 
 Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
 
