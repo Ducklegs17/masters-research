@@ -16,18 +16,22 @@ Basically, find the 'best' way to get a desired outcome where best is optimising
 
 ## Introduction
 
-One challenge facing the bioinformatician of today is how much money to spend on what type of sequencing, how much work are they going to have to do to get a de-novo assembly out of the data (in terms of cpu time and resources) and what kind of quality can they expect. Is it better to spend a bit more money and get pacbio hifi reads but then spend a small amount of time assembling than to get nanopore and spend more time and money on the assembly component.  
+In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. By 1991, much progress had been made in automating some of these steps and hence, scientists were projecting being able to sequence up to 1Mb per year in the very near future and, with further improvements in methodology and computing capability, up to 100Mb per year in the next 5 to 10 years [hunkapiller_1991]. Sanger sequencing, **being 99.99%** accurate, was considered the gold standard for confirmation of variants in medical diagnoses for many years [beck_2016]. 
 
-## Body
+## Second Generation - pyrosequencing
 
-testRef [@sanger_1977] 
+The second generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and was characterised by the use of a luminescent method **for inferring pyrophosphate production as each nucleotide is washed over the template DNA**.  
 
-The three-dimensional structure of DNA was solved in 1953 (@watson_1953) but the next logical step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" (@heather_2016). The method they described in this paper is now termed Sanger Sequencing and is considered the first generation of DNA sequencing technologies. In particular, Sanger, Nickeln and Coulsons method works as follows: the sample to be sequenced, DNA nucleotides, DNA polymerase, a primer and a small number of fluorescent dyed dideoxynucleotides are combined in a test tube. The tube is heated to denature the DNA and then cooled to allow the primer to bind to the template strands. The mixture is then heated again so that, beginning at the primer, the DNA polymerase begins to add nucleotides to the template strands of DNA. This continues until one of the dideoxynucleotides are added at which point DNA synthesis of that strand halts. This process is completed a number of times and the fragments are then separated by size using capillary gel electrophoresis. As each fragment reaches the end of the capillary, the fluorescence of the terminating dideoxynucleotide under a laser determines the basecall of that position (@sanger_1977).
+## Third Generation - PacBio and Nanopore
 
+The third generation of sequencing technologies is generally characterised by the ability to sequence single molecules, negating the need for PCR steps.
 
-Second Generation - Illumina
+Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
 
-Third Generation - PacBio and Nanopore
+## Fourth Generation
+
+The most recent major advance in the field of sequencing technology is Circular Consensus Sequencing (CCS) from PacBio where a highly accurate consensus sequence is derived from multiple passes around a single molecule [@wenger_2019] **(see Figure ??)**. This technology requires 
+
 
 Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
 
