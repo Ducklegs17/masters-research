@@ -5,14 +5,11 @@ date: "27 August 2019"
 output: html_document
 bibliography: bibliography.bib
 ---
-
 To do: 
 Explore strengths and weaknesses of main sequencing platforms. 
 Work out a range of relatively common ways that people use this data to get a de-novo assembly.
 Create a range of reproducible pipelines in snakemake or nextflow that use these methods for de-novo assembly. 
 Benchmark these pipelines and the associated tools using another reproducible pipeline in snakemake or nextflow and a quality metric to show how long methods take and the quality of what you get out. 
-
-Basically, find the 'best' way to get a desired outcome where best is optimising money and time. 
 
 ## Introduction
 
@@ -24,14 +21,16 @@ The second generation of sequencing technology began to emerge around the same t
 
 ## Third Generation - PacBio and Nanopore
 
-The third generation of sequencing technologies is generally characterised by the ability to sequence single molecules, negating the need for PCR steps.
+There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments as is required for both Sanger sequencing and pyrosequencing. PacBio (then ???) was the first to utilise this sequencing method [@eid_2009]. In particular, their method 
+Both PacBio and Oxford Nanopore offer third generation sequencing but
+- long reads but lower quality than illumina and sanger
 
 Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
 
 ## Fourth Generation
 
 The most recent major advance in the field of sequencing technology is Circular Consensus Sequencing (CCS) from PacBio where a highly accurate consensus sequence is derived from multiple passes around a single molecule [@wenger_2019] **(see Figure )**. This technology requires 
-
+-mention long reads, high quality compared with earlier technology
 
 ![CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png)
 
@@ -41,11 +40,61 @@ Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommende
 
 For nanopore, discuss basecalling. 
 
-Assembly tools and algorithms that deal with each type of data. 
-Long, high quality reads. 
-short reads, high quality (paired end. Maybe mention HiC here?)
-PacBio and nanopore reads. 
-PacBio HiFi reads
+## Why we do De Novo Assembly
+
+There are a massive number of projects currently being undertaken focusing on the de novo assembly of previously unsequenced organisms. Some of these include the Global Invertebrates Genomics Alliance (GIGA) looking to sequence 7,000 invertebrates [@gigacommunityofscientists_2014], the Genome 10K Project aiming to sequence 10,000 vertebrates [@koepfli_2015] and, most recently, the Earth BioGenome Project with the lofty goal of sequencing 'all of Earth's eukaryotic biodiversity over a period of ten years' [@lewin_2018]. With this many projects underway, it is essential that we are able to measure the quality and completeness of a de novo assembly [@yang_2019] and there are a number of different options currently available. One commonly cited metric of assembly quality is contig N50 where a contig N50 of 1Mb implies that contigs/scaffolds of 1Mb and greater comprise 50% of the total assembly size. However, this only gives the reader an indication of the distribution of the contigs, can easily be manipulated through more or less stringent filtering of short contigs (ref here too https://www.molecularecologist.com/2017/04/the-first-problem-with-n50/) and can be artificially increased by specifying less stringent requirements for the concatenation of contigs [@gurevich_2013]. 
+In 2009 CEGMA (Core Eukaryotic Gene) QUAST (QUality Assessment Tool for genome assemblies) was developed in 2013 in an effort to 
+Another approach to assessing quality and completeness of an assembly is demonstrated by BUSCO (Benchmarking Universal Single-Copy Orthologs), which benchmarks the ortholog content of a new assembly against a curated ortholog set generated from a selection of organisms belonging to the same clade [@simo_2015; @waterhouse_2017]. This method is 
+The Earth BioGenome Project proposes to use a combination of measures and avoids direct classification of assemblies. Specifically, they assess contig N50, scaffold N50, a measure of chromosome assignment as well as a measure of basecall quality [@lewin_2018]. By including 
+
+
+
+- quality metrics of an assembly (brief) (Busco, LAI, N50, NG50)
+
+requirements. DQA is an important task for de novo genome assembly and is especially useful today, as massive genome assemblies are in progress or available as drafts.
+
+
+- SQUAT [@yang_2019] - SQUAT sequence quality assessment tool for de novo assemblies
+
+
+
+[@liu_2012] - comparison of next generation sequencing systems
+
+- comparison of long sequence assemblies
+
+[@weirather_2017] - Comprehensive comparison of Pacific Biosciences and Oxford Nanopore Technologies and their applications to transcriptome analysis
+
+[@giordano_2017] - De novo yeast genome assemblies from MinION, PacBio and MiSeq platforms
+
+
+
+## Illumina pipeline and associated quality
+
+## pacbio pipeline and quality
+
+
+## nanopore pipeline and quality
+
+
+- general pipeline for illumina/second gen) reads
+- general pipeline for 3rd gen reads
+- pipeline for fourth gen reads
+- comparison of assembly with only illumina paired end reads vs longer poorer quality reads
+- justify only looking at methods using long reads of some kind. 
+
+## Gold Standard assembly algorithms review
+
+-Illumina 
+[@khan_2018] - study of de novo genome assemblers for paired end and single reads for illumina, uses prokaryotes and eukaryotes
+
+## PacBio and Nanopore algorithms
+
+- polishing?
+
+## PacBio Hifi reads
+ 
+-can hifi be used for polishing a nanopore assembly?
+
    
 How much data will you get from a particular platform. 
 
@@ -88,5 +137,3 @@ Review tools based on algorithms used.
 
 
 ## References
-
-
