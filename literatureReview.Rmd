@@ -13,6 +13,8 @@ Benchmark these pipelines and the associated tools using another reproducible pi
 
 ## Introduction
 
+## First Generation
+
 In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. By 1991, much progress had been made in automating some of these steps and hence, scientists were projecting being able to sequence up to 1Mb per year in the very near future and, with further improvements in methodology and computing capability, up to 100Mb per year in the next 5 to 10 years [hunkapiller_1991]. Sanger sequencing, **being 99.99%** accurate, was considered the gold standard for confirmation of variants in medical diagnoses for many years [beck_2016]. 
 
 ## Second Generation - pyrosequencing
@@ -21,9 +23,11 @@ The second generation of sequencing technology began to emerge around the same t
 
 ## Third Generation - PacBio and Nanopore
 
-There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments as is required for both Sanger sequencing and pyrosequencing. PacBio (then ???) was the first to utilise this sequencing method [@eid_2009]. In particular, their method 
+There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments as is required for both Sanger sequencing and pyrosequencing. PacBio was the first to utilise this sequencing method [@eid_2009]. In particular, their method 
 Both PacBio and Oxford Nanopore offer third generation sequencing but
 - long reads but lower quality than illumina and sanger
+
+For nanopore, discuss basecalling.
 
 Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
 
@@ -32,24 +36,31 @@ Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommende
 The most recent major advance in the field of sequencing technology is Circular Consensus Sequencing (CCS) from PacBio where a highly accurate consensus sequence is derived from multiple passes around a single molecule [@wenger_2019] **(see Figure )**. This technology requires 
 -mention long reads, high quality compared with earlier technology
 
-![CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png)
+<center>
 
-**Fix the pacbio github reference above**
+![CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png){width=50%}
 
-Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
+</center>
 
-For nanopore, discuss basecalling. 
+**Fix the pacbio github reference above. not sure how to reference without a doi**
 
 ## Quality metrics for de novo assembly
 
 There are two methods of genome assembly; comparative and de novo. Comparative assembly utilises a reference genome of a closely related organism for guidance in the assembly process and is computationally cheap compared to de novo assembly which is usually done when there is no reference assembly of a related organism available[@kyriakidou_2018]. 
 There are a massive number of projects currently being undertaken involving the de novo assembly of previously unsequenced organisms. Some of these include the Global Invertebrates Genomics Alliance (GIGA) looking to sequence 7,000 invertebrates [@gigacommunityofscientists_2014], the Genome 10K Project aiming to sequence 10,000 vertebrates [@koepfli_2015] and, most recently, the Earth BioGenome Project with the lofty goal of sequencing 'all of Earth's eukaryotic biodiversity over a period of ten years' [@lewin_2018] including a de novo assembly from each family. With such a large number of sequencing projects underway, it is essential that we are able to accurately measure the quality and completeness of a de novo assembly [@yang_2019]. 
 
-Probably the most commonly cited metric of assembly quality is contig N50 [@kyriakidou_2018] where a contig N50 of 1Mb implies that contigs of 1Mb and greater comprise 50% of the total assembly size. However, this only gives the reader an indication of the distribution of the contigs, can easily be manipulated through more or less stringent filtering of short contigs (ref here too https://www.molecularecologist.com/2017/04/the-first-problem-with-n50/) and can be artificially increased by specifying less stringent requirements for the concatenation of contigs [@gurevich_2013]. For these reasons, contig N50 alone isn't enough to measure assembly quality. QUAST, Quality Assessment Tool for genome assemblies released, improves on this by reporting contig N50 in addition to the number of contigs, length of the largest contig, total length, GC content and the number of predicted genes in a de novo assembly [@gurevich_2013]. While this is inarguably better, it still doesn't give any information regarding base quality scores or the likely completeness of the assembly. 
+Probably the most commonly cited metric of assembly quality is contig N50 [@kyriakidou_2018] where a contig N50 of 1Mb implies that contigs of 1Mb and greater comprise 50% of the total assembly size. However, this only gives the reader an indication of the distribution of the contigs, can easily be manipulated through more or less stringent filtering of short contigs (ref here too https://www.molecularecologist.com/2017/04/the-first-problem-with-n50/) and can be artificially increased by specifying less stringent requirements for the concatenation of contigs [@gurevich_2013]. For these reasons, contig N50 alone isn't enough to measure assembly quality. QUAST, Quality Assessment Tool for genome assemblies released, improves on this by reporting contig Nx in addition to the total number of contigs, length of the largest contig, total length, GC content and the number of predicted genes in a de novo assembly [@gurevich_2013]. While this is inarguably better, it still doesn't give any information regarding base quality scores or the likely completeness of the assembly. 
 
-One approach to assessing the quality and completeness is demonstrated by BUSCO (Benchmarking Universal Single-Copy Orthologs) which benchmarks the ortholog content of a new assembly against a curated ortholog set generated from a selection of organisms belonging to the same clade [@simo_2015; @waterhouse_2017]. BUSCO then reports the number of complete orthologs found with only a single copy, complete orthologs with multiple copies, fragmented orthologs and missing orthologs [@simo_2015]. The higher the number of complete single copy orthologs, the more complete the assembly is likely to be while high numbers of multiple copy orthologs are likely to indicate that the assembly of haplotypes is incorrect [@simo_2015]. Another method for assessing the completeness of an assembly (primarily in plants) is the LTR Assembly Index (LAI) [@ou_2018]. Given that LRT Retrotransposons comprise a large portion of most plant genomes [@ou_2017] and that they are notoriously difficult to sequence due to their repetitive nature [@ou_2018], a measure of assembly continuity of these regions is warranted. This method uses the      
+Another approach to assessing assembly completeness is demonstrated by BUSCO (Benchmarking Universal Single-Copy Orthologs) which benchmarks the ortholog content of a new assembly against a curated ortholog set generated from a selection of organisms belonging to the same clade [@simo_2015; @waterhouse_2017]. BUSCO then reports the number of complete orthologs found with only a single copy, complete orthologs with multiple copies, fragmented orthologs and missing orthologs [@simo_2015]. The higher the number of complete single copy orthologs, the more complete the assembly is likely to be while high numbers of multiple copy orthologs are likely to indicate that the assembly of haplotypes is incorrect [@simo_2015]. Another method for assessing the completeness of an assembly (primarily in plants) is the LTR Assembly Index (LAI) [@ou_2018_lai]. Given that LRT Retrotransposons comprise a large portion of most plant genomes [@ou_2017] and that they are notoriously difficult to sequence due to their repetitive nature, a measure of assembly continuity of these regions is warranted [@ou_2018_lai]. Ou, Chen and Jiang noted that more complete genomes had a higher proportion of intract LTR elements when compared with less complete genomes (2018).To leverage this fact, they used LTR_retriever [@ou_2018_retriever] to first identify all LTR elements, then identified all intact LTR elements and finally applied a transformation to estimate LAI (see Equation 1 below) where LAI values less than 10 indicate draft genomes, between 10 and 20 are reference quality and LAI scores over 20 indicate gold standard assemblies [@ou_2018_lai]. 
+By evaluating the assembly quality of of one of the more difficult regions to assemble, this method fills a gap in assessing plant assembly quality by allowing 
+As a lot of new assemblies obtain very high BUSCO scores [@ou_2018_lai], this method helps to further differentiate between a good and a great assembly, if only in plants. 
 
-The Earth BioGenome Project proposes to use a combination of measures and avoids direct classification of assemblies. Specifically, they assess contig N50, scaffold N50, a measure of chromosome assignment as well as a measure of basecall quality [@lewin_2018]. By including 
+<br>
+
+$$LAI = \frac{Intact \space LTR \space element \space length}{Total \space LTR \space sequence \space length}\times 100 + 2.8138 \times (94 - Whole \space genome \space LTR \space identity)$$
+<br>
+
+And finally, it is worth investigating the methods proposed for assessing assembly quality in some of the major sequencing projects currently underway. The Earth BioGenome Project proposes to use a combination of contig N50, scaffold N50, a measure of chromosome assignment and a measure of basecall quality while avoiding assigning a direct classification (eg. gold, platinum, draft) [@lewin_2018]. GIGA proposes a similar approach but will also report, where possible, percent gaps, percent detection of conserved eukaryotic genes, a statistical assessment of assembly, alignment to any available syntenic or physical maps and mapping statistics of any availabla transcript data where possible [@gigacommunityofscientists_2014].   
 
 
 DQA is an important task for de novo genome assembly and is especially useful today, as massive genome assemblies are in progress or available as drafts.
@@ -66,7 +77,7 @@ DQA is an important task for de novo genome assembly and is especially useful to
 
 [@giordano_2017] - De novo yeast genome assemblies from MinION, PacBio and MiSeq platforms
 
-
+Pipelines for genome assemblies vary 
 
 ## Illumina pipeline and associated quality
 
