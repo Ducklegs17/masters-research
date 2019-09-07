@@ -5,7 +5,8 @@ date: "27 August 2019"
 output: html_document
 bibliography: bibliography.bib
 ---
-To do: 
+
+Aim: 
 Explore strengths and weaknesses of main sequencing platforms. 
 Work out a range of relatively common ways that people use this data to get a de-novo assembly.
 Create a range of reproducible pipelines in snakemake or nextflow that use these methods for de-novo assembly. 
@@ -13,34 +14,44 @@ Benchmark these pipelines and the associated tools using another reproducible pi
 
 ## Introduction
 
+Write intro. 
+
 ## First Generation
 
 In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. By 1991, much progress had been made in automating some of these steps and hence, scientists were projecting being able to sequence up to 1Mb per year in the very near future and, with further improvements in methodology and computing capability, up to 100Mb per year in the next 5 to 10 years [hunkapiller_1991]. Sanger sequencing, **being 99.99%** accurate, was considered the gold standard for confirmation of variants in medical diagnoses for many years [beck_2016]. 
 
-## Second Generation - pyrosequencing
+## Next Generation Techniques
+The next generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and is characterised by the ability to sequence millions of DNA fragments at the same time [@behjati_2013]. Next Gen techniques can be subdivided into at least two sub-categories; second and third generation. Second generation techniques still in use include platforms such as Illumina (originally Solexa), Ion Torrent and SOLiD (Sequencing by Oglionucleotide Ligation and Detection). Of these, Illumina is by far the most commonly used platform [@greenleaf_2014] and provides a range of options for both benchtop and production scale sequencing producing both single and paired end reads of various lengths. Illumina uses a patented sequencing by synthesis technology where fluorescently tagged reversible terminators are imaged and cleaved as dNTPs are incorporated into a 'lawn' of amplified DNA fragments by DNA polymerase [@buermans_2014]. While this method results in very high quality reads (85% bp $\geq$ Q30 for 2 x 50bp versus 75% bp $\geq$ Q30 for 2 x 250bp on the NovaSeq 6000 System [@novaseq_nd]), the error distribution is not random [@schirmer_2016] and there are also limitations due to preferential amplification [@aird_2011; @krehenwinkel_2017] (though @pfeiffer_2018 found no evidence of bias due to amplificiation in NGS technologies in their study). 
 
-The second generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and was characterised by the use of a luminescent method **for inferring pyrophosphate production as each nucleotide is washed over the template DNA**.  
+There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments and hence, removing the associated errors and biases [@schadt_2010]. PacBio provided the first widely used third generation technology using the SMRT (Single-Molecule, Real-Time) sequencing technique. In this technique, the real-time addition of bases is observed by immobilising DNA polymerase in a Zero Mode Waveguide illuminated from below by a laser. This enables the detection of the incorporation of individual phospholinked nucleotides against the bulk solution background (see Figure 1 below) [@eid_2009].  Using SMRT technology, there are two types of reads that can be generated; continuous long reads (CLRs) and circular consensus sequences (CCSs). CLRs were the first to become available and are characterised by very long read lengths (half of bases in reads >50kb on the Sequel II System with a 35kb size selected library) **reference pacbio website here** and an error rate of around 15% [@wei_2018]. Unlike first and second generation technologies, CLR errors are randomly distributed [@eid_2009, @pollard_2018] which means that, with enough depth, consensus across a number of reads can be reached [@pollard_2018]. 
 
-## Third Generation - PacBio and Nanopore
 
-There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments as is required for both Sanger sequencing and pyrosequencing. PacBio was the first to utilise this sequencing method [@eid_2009]. In particular, their method 
-Both PacBio and Oxford Nanopore offer third generation sequencing but
-- long reads but lower quality than illumina and sanger
+Pacific Biosciences made CCS read technology available to the public in 2019 [@wenger_2019]. 
+ and the length of these reads is limited by the lifetime of the DNA polymerase.
+
+is SMRT sequencing on the Sequel II is able to produce long CLR reads (??kb) but with a lower quality (raw read error rate of 13-15% [@weirather_2017]) than provided by illumina or Sanger sequencing techniques. However, while these reads are of lower quality than from previous technologies, the error distribution is random [@eid_2009] Apart from PacBio, Oxford Nanopore is the other major provider of long, lower quality reads. 
+
+
+<br>
+<center>
+
+![Figure 1: Principle of SMRT DNA sequencing. Source: [@eid_2009]](images/pacbioSMRT.png){width=50%}
+
+</center>
+<br>
+
 
 For nanopore, discuss basecalling.
 
-Sequencing Platforms and error profiles/types. Strengths, weaknesses. Recommended coverage. (Maybe make a table summarising this information)
+PacBio has also recently introduced Hifi reads to the market, or circular Consensus Sequencing (CSS), which boasts sequences that are both long and accurate. The process is very similar to normal PacBio SMRT sequencing except that hairpin adapters are ligated to both ends of DNA fragments to allow the DNA polymerase to travel around a circular template molecule multiple times and hence, to generate a consensus sequence (see Figure 2 below) [@wenger_2019]. By selecting for fragments of approximately 15kb in length (using SageELF for separation into 3kb fractions and Agilent 2100 BioAnalyzer to identify fractions centered around 15kb), Sequel produced an average consensus sequence length of 13.5±1.2 kb with mean read concordance (when compared with the reference) at 99.8% (compared with 99.9% for illumina reads).
 
-## Fourth Generation
-
-The most recent major advance in the field of sequencing technology is Circular Consensus Sequencing (CCS) from PacBio where a highly accurate consensus sequence is derived from multiple passes around a single molecule [@wenger_2019] **(see Figure )**. This technology requires 
--mention long reads, high quality compared with earlier technology
 
 <center>
 
-![CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png){width=50%}
+![Figure 2: CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png){width=50%}
 
 </center>
+<br>
 
 **Fix the pacbio github reference above. not sure how to reference without a doi**
 
@@ -62,12 +73,9 @@ $$LAI = \frac{Intact \space LTR \space element \space length}{Total \space LTR \
 
 And finally, it is worth investigating the methods proposed for assessing assembly quality in some of the major sequencing projects currently underway. The Earth BioGenome Project proposes to use a combination of contig N50, scaffold N50, a measure of chromosome assignment and a measure of basecall quality while avoiding assigning a direct classification (eg. gold, platinum, draft) [@lewin_2018]. GIGA proposes a similar approach but will also report, where possible, percent gaps, percent detection of conserved eukaryotic genes, a statistical assessment of assembly, alignment to any available syntenic or physical maps and mapping statistics of any availabla transcript data where possible [@gigacommunityofscientists_2014].   
 
-
 DQA is an important task for de novo genome assembly and is especially useful today, as massive genome assemblies are in progress or available as drafts.
 
 - SQUAT [@yang_2019] - SQUAT sequence quality assessment tool for de novo assemblies
-
-
 
 [@liu_2012] - comparison of next generation sequencing systems
 
@@ -102,7 +110,6 @@ Pipelines for genome assemblies vary
 
 - polishing?
 
-## PacBio Hifi reads
  
 -can hifi be used for polishing a nanopore assembly?
 
@@ -124,27 +131,37 @@ Without a reference. Explain why this is more difficult.
 - BUSCO score
 - LTR Retrotransposons (particularly for plants?)
 
+
+
+
 ### Conclusion
 Many authors have investigated the differences in genome quality and CPU hours between a range of different assembly tools/algorithms while others focus more on ???. Nowhere is there a single resource that informs a bioinformatician of the pros and cons at every decision along the way of generating a de-novo assembly which is supported by rigorous benchmarking and the provision of reproducible pipelines. 
 
+******
 
-```{r}
-#list of languages embedded by knitr into r
-names(knitr::knit_engines$get())
+# Outline
 
-```
+Introduction
+
+Sequencing platforms available + strengths and weaknesses
+
+De novo assembly and 
+
+Quality assessment
+
+Snakemake and Nextflow
+
+*****
 
 For example, python can be used. 
-
-```{python, engine.path = '/home/chelsea/anaconda3/bin/python3'}
-# Above code enables python version 3
-import sys
-print(sys.version)
-```
 
 Review quality trimming tools
 
 Review tools based on algorithms used. 
+
+```{python, engine.path = '/home/chelsea/anaconda3/bin/python3'}
+import sys
+```
 
 
 ## References
