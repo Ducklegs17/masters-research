@@ -4,12 +4,12 @@
 
 Written resource that gives information regarding: 
 
-* current costs of sequencing
+* current costs of sequencing (nanopore, pacBio, pacbio hifi, illumina for polishing) 
 * amount of bases output/number of reads
 * error profile, pros and cons of each type of sequencing
-* tool benchmarking for speed, cpu hours etc.
-* genome quality that might be expected
-* Detailed examples.
+* gold standard tool benchmarking for speed, cpu hours etc.
+* genome quality that might be expected from a particular tool and coverage
+* Detailed examples that are easily followed.
 
 #### 2) 
 
