@@ -14,29 +14,25 @@ Benchmark these pipelines and the associated tools using another reproducible pi
 
 ## Introduction
 
-Write intro. 
+@sovi_2016 ??
+
+Write about the total cost of a pipeline and how this impacts funding. 
 
 ## First Generation
 
-In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. By 1991, much progress had been made in automating some of these steps and hence, scientists were projecting being able to sequence up to 1Mb per year in the very near future and, with further improvements in methodology and computing capability, up to 100Mb per year in the next 5 to 10 years [@hunkapiller_1991]. Sanger sequencing, **being 99.99%** accurate and producing reads of slightly less than 1kb in length [@heather_2016], was considered the gold standard for confirmation of variants in medical diagnoses for many years [beck_2016]. 
+In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. By 1991, much progress had been made in automating some of these steps and hence, scientists were projecting being able to sequence up to 1Mb per year in the very near future and, with further improvements in methodology and computing capability, up to 100Mb per year in the next 5 to 10 years [@hunkapiller_1991]. Sanger sequencing, **being 99.99%** accurate and producing reads of slightly less than 1kb in length [@heather_2016], was considered the gold standard for confirmation of variants in medical diagnoses for many years [beck_2016] despite comparatively low throughput and great expense.  
 
 ## Next Generation Techniques
-The next generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and is characterised by the ability to sequence millions of DNA fragments at the same time [@behjati_2013]. Next Gen techniques can be subdivided into at least two sub-categories; second and third generation. Second generation techniques still in use include platforms such as Illumina (originally Solexa), Ion Torrent and SOLiD (Sequencing by Oglionucleotide Ligation and Detection). Of these, Illumina is by far the most commonly used platform [@greenleaf_2014] and provides a range of options for both benchtop and production scale sequencing producing both single and paired end reads of various lengths. Illumina uses a patented sequencing by synthesis technology where fluorescently tagged reversible terminators are imaged and cleaved as dNTPs are incorporated into a 'lawn' of amplified DNA fragments by DNA polymerase [@buermans_2014]. While this method results in very high quality reads (85% bp $\geq$ Q30 for 2 x 50bp versus 75% bp $\geq$ Q30 for 2 x 250bp on the NovaSeq 6000 System [@novaseq_nd]), the error distribution is not random [@schirmer_2016] and there are also limitations due to preferential amplification [@aird_2011; @krehenwinkel_2017] (though @pfeiffer_2018 found no evidence of bias due to amplificiation in NGS technologies in their study). 
+The next generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and was characterised by the ability to sequence millions of DNA fragments at the same time [@behjati_2013]. Next Gen techniques can be subdivided into at least two sub-categories; second and third generation. Second generation techniques still in use include platforms such as Illumina (originally Solexa), Ion Torrent and SOLiD (Sequencing by Oglionucleotide Ligation and Detection). Of these, Illumina is by far the most commonly used platform [@greenleaf_2014] and provides a range of options for both benchtop and production scale sequencing producing both single and paired end reads of various lengths. Illumina uses a patented sequencing by synthesis technology where fluorescently tagged reversible terminators are imaged and cleaved as dNTPs are incorporated into a 'lawn' of amplified DNA fragments by DNA polymerase [@buermans_2014]. While this method results in very high quality reads (85% bp $\geq$ Q30 for 2 x 50bp versus 75% bp $\geq$ Q30 for 2 x 250bp on the NovaSeq 6000 System [@novaseq_nd]), the error distribution is not random [@schirmer_2016] and there are also limitations due to preferential amplification [@aird_2011; @krehenwinkel_2017] (though @pfeiffer_2018 found no evidence of bias due to amplificiation in NGS technologies in their study). 
 
-There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments and hence, removing the associated errors and biases [@schadt_2010]. PacBio provided the first widely used third generation technology using the SMRT (Single-Molecule, Real-Time) sequencing technique. In this technique, the real-time addition of bases is observed by immobilising DNA polymerase in a Zero Mode Waveguide illuminated from below by a laser. This enables the detection of the incorporation of individual phospholinked nucleotides against the bulk solution background (see Figure 1 below) [@eid_2009].  Using SMRT technology, there are two types of reads that can be generated; continuous long reads (CLRs) and circular consensus sequences (CCSs). CLRs were the first to become available and are characterised by very long read lengths (half of bases in reads >50kb on the Sequel II System with a 35kb size selected library) **reference pacbio website here** and an error rate of around 15% [@wei_2018]. Unlike first and second generation technologies, CLR errors are randomly distributed [@eid_2009; @pollard_2018] which means that, with enough depth, consensus across a number of reads can be reached [@pollard_2018]. 
+There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments and hence, removing the associated errors and biases [@schadt_2010]. PacBio provided the first widely used third generation technology using the SMRT (Single-Molecule, Real-Time) sequencing technique. In this technique, the real-time addition of bases is observed by immobilising a DNA polymerase in a Zero Mode Waveguide illuminated from below by a laser. This enables the detection of the incorporation of individual phospholinked nucleotides against the bulk solution background (see Figure 1 below) [@eid_2009]. PacBio sequencing also makes use of the SMRTbell template format where single stranded hairpin adapters are ligated to both ends of the double stranded fragment of DNA. Then, during sequencing using the SMRT platform, the DNA polymerase begins incorporating bases, starting at the primer, around the circular fragment. If it travels the full circle and reaches the primer where it began, the DNA polymerase will displace the new strand and continue sequencing. Using this method, both the sense and anti-sense strands can be sequenced resulting in either very long reads of low quality (~15% error rate from a single pass raw read [@wei_2018]), or shorter more accurate reads can be generated (from multiple passes and the creation of a consensus sequence) [@travers_2010] (see Figure 2). Unlike first and second generation technologies, CLR errors are randomly distributed [@eid_2009; @pollard_2018] which means that, with enough depth, consensus across a number of reads can be reached [@pollard_2018]. 
+
 
 <br>
 <center>
 
 ![Figure 1: Principle of SMRT DNA sequencing. Source: [@eid_2009]](images/pacbioSMRT.png){width=50%}
 
-</center>
-<br>
-
-PacBio has also recently introduced Hifi reads to the market [@wenger_2019]. Hifi reads are generated using Circular Consensus Sequencing (CSS) and boast sequences that are both long and accurate. The process is very similar to normal PacBio SMRT sequencing except that hairpin adapters are ligated to both ends of DNA fragments to allow the DNA polymerase to travel around a circular template molecule multiple times and hence, to generate a consensus sequence (see Figure 2 below) [@wenger_2019]. By selecting for fragments of approximately 15kb in length (using SageELF for separation into 3kb fractions and Agilent 2100 BioAnalyzer to identify fractions centered around 15kb), Sequel produced an average consensus sequence length of 13.5±1.2 kb with mean read concordance (when compared with the reference) at 99.8% (compared with 99.9% for illumina reads). This shows that PacBio CCS technology is capable of producing reads longer than Sanger sequencing techniques and of an equivalent quality to both Sanger and Illumina. 
-
-
-<center>
 
 ![Figure 2: CCS generation. Source: [@pacificbiosciences_2019]](images/ccs-workflow.png){width=50%}
 
@@ -45,14 +41,35 @@ PacBio has also recently introduced Hifi reads to the market [@wenger_2019]. Hif
 
 **Fix the pacbio github reference above. not sure how to reference without a doi**
 
-Apart from PacBio, Oxford Nanopore is the other major provider of third generation sequencing technology. The MinION device, released in 2014 [@mikheyev_2014], costs just $1000, reports data in real time just two minutes after sequencing begins (with 10 minutes sample preparation time using the Rapid Kit) and is literally pocket sized **(Reference Nanopore website here)**. Nanopore technology directly sequences a single strand of DNA by binding the DNA template and complement with a hairpin adapter at one end and threading the resulting molecule through a nanopore using a molecular motor protein. As the molecule moves through the pore, changes in current are measured and a basecaller is used to determine the nucleotide sequence. The adapter sequences can then be removed from the resulting read and a consensus sequence generated (referred to as a 2D read) [@weirather_2017]. @weirather_2017 found that nanopore technology has a higher error rate than PacBio on a single pass (1D reads) (~20% vs ~14% respectively) but by using the 2D strategy, errors are reduced to approximately 13% (similar to a PacBio CLR). In particular, errors in calling homopolymers are common but it has been demonstrated that improvements to the basecalling algorithm can reduce these errors [@jain_2017]. 
+PacBio Hifi reads, an optimisation of circular consensus sequencing methods, [@wenger_2019] boast sequences that are both long and highly accurate. By selecting for fragments of approximately 15kb in length (using SageELF for separation into 3kb fractions and Agilent 2100 BioAnalyzer to identify fractions centered around 15kb), Sequel produced an average consensus sequence length of 13.5±1.2 kb with mean read concordance (when compared with the reference) at 99.8% (compared with 99.9% for illumina reads). This demonstrates the utility of PacBio Hifi reads with sequence lengths much greater than Sanger or Illumina reads as well as comparable accuracy.  
+
+Apart from PacBio, Oxford Nanopore is the other major provider of third generation sequencing technology. The MinION device was released in 2014 [@mikheyev_2014] and costs just $1000 US for a starter pack, reports data in real time beginning just two minutes after sequencing starts (with 10 minutes sample preparation time using the Rapid Kit) and is literally pocket sized **(Reference Nanopore website here)**. Nanopore technology directly sequences  single strand of DNA by threading it through a nanopore using a molecular motor protein. As the molecule moves through the pore, changes in current are measured and a basecaller is used to determine the nucleotide sequence based on these changes. Using this method, a 1D read is obtained as the fragment is sequenced in a single pass. To improve data quality, a 2D read can be generated by ligating a hairpin adapter to one end of a double strand of DNA. Then the fragment passes through the pore as a single strand and the same fragment is sequenced on both the sense and anti-sense strand [@weirather_2017]. @weirather_2017 found that nanopore technology has a higher error rate than PacBio for a single pass (1D reads) (~20% error rate for 1D reads vs ~14% error rate for PacBio CLR) but by using the 2D strategy, errors are reduced to approximately 13% (similar to a PacBio CLR). Unfortunately, due to the design of the nanopore platform, circularising the DNA fragments is not possible and so consensus sequences of more than two passes cannot be generated. 
+
+
+[@liu_2012] - comparison of next generation sequencing systems
 
 ## Pros and cons of using different data types for assembly
 
 There are two methods of genome assembly; comparative and de novo. Comparative assembly utilises a reference genome of a closely related organism for guidance in the assembly process and is computationally cheap compared to de novo assembly which is usually done when there is no reference assembly of a related organism available [@kyriakidou_2018]. There are a massive number of projects currently being undertaken involving the de novo assembly of previously unsequenced organisms. Some of these include the Global Invertebrates Genomics Alliance (GIGA) looking to sequence 7,000 invertebrates [@gigacommunityofscientists_2014], the Genome 10K Project aiming to sequence 10,000 vertebrates [@koepfli_2015] and, most recently, the Earth BioGenome Project with the lofty goal of sequencing 'all of Earth's eukaryotic biodiversity over a period of ten years' [@lewin_2018] including a de novo assembly from each family. 
 
-There are countless different ways to generate a de novo assembly but all of them begin with at least one type of sequencing data. In **???**, the human genome was sequenced with 10X coverage of Sanger sequencing **(reference here)** but the application of newer sequencing technologies to the same problem has resulted in great improvements to the assembly **(ref here)**.   
+There are countless different paths to generating a de novo assembly but all of them begin with at least one type of sequencing data. In the beginning, the human genome was sequenced using primarily Sanger sequencing techniques [@lander_2001] but the advent of Next Generation techniques and the associated high throughput has made sequencing on a much larger scale possible [@pollard_2018]. Sequencing by synthesis methods meant that a entire human genome could be sequenced in a day compared with years for the first human genome draft using Sanger techniques [@behjati_2013]. However, Illumina reads (single or paired end) simply aren't long enough to reconstruct some of the more complex and repetitive regions of the genome [@pollard_2018; @sovi_2016], are not suited for discovery of structural variants [@cretustancu_2017]] and are further limited by preferential amplification of certain fragments. To overcome these shortfalls, third generation sequencing techniques have been invaluable, providing long reads to give context in extended repetitive regions, enabling the discovery of structural variants as well as removing bias associated with amplification of DNA fragments. A large amount of research has made it very clear that the incorporation of at least some long reads into a de novo assembly greatly improves the final assembly quality [@shin_2019; @jain_2018; @rhoads_2015]. What is less clear is exactly how this should be done. 
 
+- spend more money on pacbio hifi reads and get 
+
+A very important consideration when contemplating any sequencing project is how much the project will cost and it is important to realise that the cost of sequencing isn't always the most expensive part. 
+
+- pacbio hifi - comparison to all?. genome in 100 minutes. 
+
+[@weirather_2017] - Comprehensive comparison of Pacific Biosciences and Oxford Nanopore Technologies and their applications to transcriptome analysis
+
+[@giordano_2017] - De novo yeast genome assemblies from MinION, PacBio and MiSeq platforms
+
+## Technology comparison for de novo assembly
+
+- using both long and short reads (for polishing?) or consider polishing with pacbio hifi.
+
+Illumina:
+[@khan_2018] - study of de novo genome assemblers for paired end and single reads for illumina, uses prokaryotes and eukaryotes
 
 ## Quality metrics for de novo assembly
 
@@ -74,24 +91,6 @@ DQA is an important task for de novo genome assembly and is especially useful to
 
 - SQUAT [@yang_2019] - SQUAT sequence quality assessment tool for de novo assemblies
 
-[@liu_2012] - comparison of next generation sequencing systems
-
-- comparison of long sequence assemblies
-
-[@weirather_2017] - Comprehensive comparison of Pacific Biosciences and Oxford Nanopore Technologies and their applications to transcriptome analysis
-
-[@giordano_2017] - De novo yeast genome assemblies from MinION, PacBio and MiSeq platforms
-
-Pipelines for genome assemblies vary 
-
-## Illumina pipeline and associated quality
-
-## pacbio pipeline and quality
-
-
-## nanopore pipeline and quality
-
-
 - general pipeline for illumina/second gen) reads
 - general pipeline for 3rd gen reads
 - pipeline for fourth gen reads
@@ -100,8 +99,8 @@ Pipelines for genome assemblies vary
 
 ## Gold Standard assembly algorithms review
 
--Illumina 
-[@khan_2018] - study of de novo genome assemblers for paired end and single reads for illumina, uses prokaryotes and eukaryotes
+Nanopore
+It should also be noted that errors in calling bases in homopolymers are very common in nanopore reads but it has been demonstrated that improvements to the basecalling algorithm can reduce these errors [@jain_2018].
 
 ## PacBio and Nanopore algorithms
 
