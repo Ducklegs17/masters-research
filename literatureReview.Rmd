@@ -76,12 +76,17 @@ There are countless different paths to generating a de novo assembly but all of 
 
 ## Discussion of different ways and tools to get a de novo assembly
 
-The de novo assembly of a genome using long reads can be done in a number of ways and is somewhat dependent on the platform(s) selected for sequencing. For example, a simple pipeline for the assembly of a genome using PacBio Hifi reads may only require the generation of consensus reads (ccs software) and the assembly of these reads into the final genome (peregrine) [@chin_2019]. In comparison, an example pipeline incorporating a combination of nanopore reads and Illumina reads could require assembly of the nanopore reads (Canu), polishing contigs (racon), mapping Illumina dataset to contigs (BWA mem) and error correction of contigs using the Illumina reads (pilon) [@nanoporetech_2016]. In reviewing different de novo assembly methods, it becomes clear that there are a great number of different tools available for assembly (Canu, Falcon, wtdbg2, Peregrine, SMARTdenovo) and these tools can be grouped by their underlying algorithm. Both Canu and Falcon are based on an Overlap-Layout-Consensus (OLC) algorithm which consists of three main steps:
+The de novo assembly of a genome using long reads can be done in a number of ways and the complexity of these pipelines is somewhat dependent on the platform(s) selected for sequencing. For example, a simple pipeline for the assembly of a genome using PacBio Hifi reads would require the generation of consensus reads (ccs software) and the assembly of these reads into the final genome (peregrine) [@chin_2019]. In comparison, a hybrid assembly incorporating both nanopore and Illumina reads could require assembly of the nanopore reads (Canu), polishing contigs (racon), mapping Illumina dataset to contigs (BWA mem) and error correction of contigs using the Illumina reads (pilon) [@nanoporetech_2016]. It should also be noted that hybrid assemblies can be completed in number of different ways, not limited to the following:  
+
+- Short reads aligned to nanopore reads for error correction prior to assembly [@goodwin_2015]
+- Nanopore reads used as scaffolds for the alignment of short reads [@ye_2016]
+- Short reads used to polish errors from the nanopore assembly [@nanoporetech_2016]
+
+It's interesting to note that the first method noted above was developed primarily to overcome the fact that existing assembly algorithms (Overlap-Layout-Consensus and a DeBrujn graph) were unable to cope with long, low quality reads that were typical of third generation sequencing technology. Correcting errors in long reads at the beginning of a pipeline made it possible to use assembly algorithms originally designed for first generation sequencing data [@ye_2016]. In reviewing different de novo assembly methods, it becomes clear that there are a great number of different tools available for assembly (Canu, Falcon, wtdbg2, Peregrine, SMARTdenovo) but there are only a few different underlying algorithms for the assembly of long reads. Both Canu and Falcon are based on an Overlap-Layout-Consensus (OLC) algorithm which consists of three main steps:
 
 1) Identify overlaps between reads
 2) Layout reads and overlaps on a graph
 3) Infer the consensus sequence [@li_2012]
-
 
 
 In a comparison of de novo MinION and PacBio assemblies of yeast genomes @giordano2017 

@@ -819,4 +819,38 @@ pmid = {22184334},
 f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
 abstract = {Since the completion of the cucumber and panda genome projects using Illumina sequencing in 2009, the global scientific community has had to pay much more attention to this new cost-effective approach to generate the draft sequence of large genomes. To allow new users to more easily understand the assembly algorithms and the optimum software packages for their projects, we make a detailed comparison of the two major classes of assembly algorithms: overlap-layout-consensus and de-bruijn-graph, from how they match the Lander-Waterman model, to the required sequencing depth and reads length. We also discuss the computational efficiency of each class of algorithm, the influence of repeats and heterozygosity and points of note in the subsequent scaffold linkage and gap closure steps. We hope this review can help further promote the application of second-generation de novo sequencing, as well as aid the future development of assembly algorithms.}
 }
+@article{ye_2016,
+title = {{DBG2OLC}: efficient assembly of large genomes using long erroneous reads of the third generation sequencing technologies.},
+author = {Ye, Chengxi and Hill, Christopher M and Wu, Shigang and Ruan, Jue and Ma, Zhanshan Sam},
+pages = {31900},
+url = {http://dx.doi.org/10.1038/srep31900},
+year = {2016},
+month = {aug},
+day = {30},
+urldate = {2019-09-09},
+journal = {Scientific reports},
+volume = {6},
+doi = {10.1038/srep31900},
+pmid = {27573208},
+pmcid = {PMC5004134},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+abstract = {The highly anticipated transition from next generation sequencing ({NGS}) to third generation sequencing ({3GS}) has been difficult primarily due to high error rates and excessive sequencing cost. The high error rates make the assembly of long erroneous reads of large genomes challenging because existing software solutions are often overwhelmed by error correction tasks. Here we report a hybrid assembly approach that simultaneously utilizes {NGS} and {3GS} data to address both issues. We gain advantages from three general and basic design principles: (i) Compact representation of the long reads leads to efficient alignments. (ii) Base-level errors can be skipped; structural errors need to be detected and corrected. (iii) Structurally correct {3GS} reads are assembled and polished. In our implementation, preassembled {NGS} contigs are used to derive the compact representation of the long reads, motivating an algorithmic conversion from a de Bruijn graph to an overlap graph, the two major assembly paradigms. Moreover, since {NGS} and {3GS} data can compensate for each other, our hybrid assembly approach reduces both of their sequencing requirements. Experiments show that our software is able to assemble mammalian-sized genomes orders of magnitude more quickly than existing methods without consuming a lot of memory, while saving about half of the sequencing cost.}
+}
+@article{goodwin_2015,
+title = {Oxford Nanopore sequencing, hybrid error correction, and de novo assembly of a eukaryotic genome.},
+author = {Goodwin, Sara and Gurtowski, James and Ethe-Sayers, Scott and Deshpande, Panchajanya and Schatz, Michael C and {McCombie}, W Richard},
+pages = {1750-1756},
+url = {http://dx.doi.org/10.1101/gr.191395.115},
+year = {2015},
+month = {nov},
+urldate = {2019-09-09},
+journal = {Genome Research},
+volume = {25},
+number = {11},
+doi = {10.1101/gr.191395.115},
+pmid = {26447147},
+pmcid = {PMC4617970},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+abstract = {Monitoring the progress of {DNA} molecules through a membrane pore has been postulated as a method for sequencing {DNA} for several decades. Recently, a nanopore-based sequencing instrument, the Oxford Nanopore {MinION}, has become available, and we used this for sequencing the Saccharomyces cerevisiae genome. To make use of these data, we developed a novel open-source hybrid error correction algorithm Nanocorr specifically for Oxford Nanopore reads, because existing packages were incapable of assembling the long read lengths (5-50 kbp) at such high error rates (between ∼5\% and 40\% error). With this new method, we were able to perform a hybrid error correction of the nanopore reads using complementary {MiSeq} data and produce a de novo assembly that is highly contiguous and accurate: The contig N50 length is more than ten times greater than an Illumina-only assembly (678 kb versus 59.9 kbp) and has \textgreater99.88\% consensus identity when compared to the reference. Furthermore, the assembly with the long nanopore reads presents a much more complete representation of the features of the genome and correctly assembles gene cassettes, {rRNAs}, transposable elements, and other genomic features that were almost entirely absent in the Illumina-only assembly. \copyright 2015 Goodwin et al.; Published by Cold Spring Harbor Laboratory Press.}
+}
 
