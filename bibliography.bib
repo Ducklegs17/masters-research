@@ -853,4 +853,22 @@ pmcid = {PMC4617970},
 f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
 abstract = {Monitoring the progress of {DNA} molecules through a membrane pore has been postulated as a method for sequencing {DNA} for several decades. Recently, a nanopore-based sequencing instrument, the Oxford Nanopore {MinION}, has become available, and we used this for sequencing the Saccharomyces cerevisiae genome. To make use of these data, we developed a novel open-source hybrid error correction algorithm Nanocorr specifically for Oxford Nanopore reads, because existing packages were incapable of assembling the long read lengths (5-50 kbp) at such high error rates (between ∼5\% and 40\% error). With this new method, we were able to perform a hybrid error correction of the nanopore reads using complementary {MiSeq} data and produce a de novo assembly that is highly contiguous and accurate: The contig N50 length is more than ten times greater than an Illumina-only assembly (678 kb versus 59.9 kbp) and has \textgreater99.88\% consensus identity when compared to the reference. Furthermore, the assembly with the long nanopore reads presents a much more complete representation of the features of the genome and correctly assembles gene cassettes, {rRNAs}, transposable elements, and other genomic features that were almost entirely absent in the Illumina-only assembly. \copyright 2015 Goodwin et al.; Published by Cold Spring Harbor Laboratory Press.}
 }
+@article{li_2016,
+title = {Minimap and miniasm: fast mapping and de novo assembly for noisy long sequences.},
+author = {Li, Heng},
+pages = {2103-2110},
+url = {http://dx.doi.org/10.1093/bioinformatics/btw152},
+year = {2016},
+month = {jul},
+day = {15},
+urldate = {2019-09-10},
+journal = {Bioinformatics},
+volume = {32},
+number = {14},
+doi = {10.1093/bioinformatics/btw152},
+pmid = {27153593},
+pmcid = {PMC4937194},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+abstract = {{MOTIVATION}: Single Molecule Real-Time ({SMRT}) sequencing technology and Oxford Nanopore technologies ({ONT}) produce reads over 10 kb in length, which have enabled high-quality genome assembly at an affordable cost. However, at present, long reads have an error rate as high as 10-15\%. Complex and computationally intensive pipelines are required to assemble such reads. {RESULTS}: We present a new mapper, minimap and a de novo assembler, miniasm, for efficiently mapping and assembling {SMRT} and {ONT} reads without an error correction stage. They can often assemble a sequencing run of bacterial data into a single contig in a few minutes, and assemble 45-fold Caenorhabditis elegans data in 9 min, orders of magnitude faster than the existing pipelines, though the consensus sequence error rate is as high as raw reads. We also introduce a pairwise read mapping format and a graphical fragment assembly format, and demonstrate the interoperability between ours and current tools. {AVAILABILITY} {AND} {IMPLEMENTATION}: https://github.com/lh3/minimap and https://github.com/lh3/miniasm {CONTACT}: hengli@broadinstitute.org {SUPPLEMENTARY} {INFORMATION}: Supplementary data are available at Bioinformatics online. \copyright The Author 2016. Published by Oxford University Press. All rights reserved. For Permissions, please e-mail: journals.permissions@oup.com.}
+}
 
