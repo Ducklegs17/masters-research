@@ -91,46 +91,13 @@ The pipelines discussed so far are all in relation to a single source of input d
 write 300 more words on software.
 
 ## Reproducibility
-Science depends on researchers being able to replicate the work of others but unfortunately, this isn't always possible. @baker found in a survey of 1500 scientists tht 70% of researchers had been unable to reproduce another scientist's experiment at some point while, even more worrying, 50% were unable to reproduce one of their own experiments. In bioinformatics, reproducibility refers specifically to being able to obtain the exact same results for an analysis using the original dataset and code but, even when the data and code are supplied, this isn't always possible [@kim_2018]. @kim_2018 suggest that the main barrier to reproducibility is the incompatibility among environments, software versions and different languages and that to combat this, researchers need to ensure their code is well written, well tested and made available in online repositories. They further suggest that a detailed step-by-step process in a Jupyter/IPython notebook or a ready-to-run Docker container should be provided to make reproduction attempts as easy as possible [@kim_2018]. The provision of a well documented Jupyter notebook would certainly be very useful in a reproduction attempt but version control is difficult in Jupyter notebook and can be difficult to carry out extensive testing on [@mueller_]. but the notion of Docker containers is perhaps even more useful. Nextflow, a workflow management system, uses Docker technology to containerise components of a pipeline while keeping track of execution provenance, allowing parallel execution of tasks and the adaption of existing pipelines written in any scripting language [@ditommaso_2017].  
+Science depends on researchers being able to replicate the work of others but unfortunately, this isn't always possible. @baker found in a survey of 1500 scientists tht 70% of researchers had been unable to reproduce another scientist's experiment at some point while, even more worrying, 50% were unable to reproduce one of their own experiments. In bioinformatics, reproducibility refers specifically to being able to obtain the exact same results for an analysis using the original dataset and code but, even when the data and code are supplied, this isn't always possible [@kim_2018]. @kim_2018 suggest that the main barrier to reproducibility is the incompatibility among environments, software versions and different languages and that to combat this, researchers need to ensure their code is well written, well tested and made available in online repositories. They further suggest that a detailed step-by-step process in a Jupyter/IPython notebook or a ready-to-run Docker container should be provided to make reproduction attempts as easy as possible [@kim_2018]. The provision of a well documented Jupyter notebook would certainly be very useful in a reproduction attempt but version control is difficult in Jupyter notebook and it can be difficult to carry out extensive testing in that environment [@mueller_2018]. However, the notion of Docker containers is worth further investigation and leads us to workflow management systems. 
 
-
-but there are a number of limitations that should eb taken into account. For example, Jupyter notebooks doesn't enable simple code versioning, is difficult to test and due to the way you can jump between cells, can result in irreproducible experiments [@mueller_2018]. 
-Other options pipeline frameworks provide another alternative to managing code and helping to ensure reproducibility [@leipzig_2017]. 
+There are currently over 200 workflow management systems available, all with different pros and cons. Some popular choices include Nextflow, Snakemake, Galaxy and Toil. Generally, workflow management systems provide infrastructure to help users build and execute pipelines and, in doing so, help to ensure reproducibility [@leipzig_2017]. They track execution provenance, allow parallel execution of tasks [@ditommaso_2017] and provide workflow diagrams to help the user visualise the order of the steps being executed in a particular pipeline [@mallawaarachchi_2018]. Nextflow, probably the most popular choice of workflow management system [], also uses Docker technology for multi-scale containerisation which, according to @ditommaso_2017, is necessary to ensure numerical stability of a pipeline across different computational platforms. While the selection of a workflow management system is partly a personal preference, some systems offer advanced functionality that may be particularly useful. For example, both Galaxy and Toil also allow for multi-scale containerisation while Snakemake does not. Snakemake also doesn't offer cloud compatibility while Nextflow, Galaxy and Toil do. Both Toil and Galaxy offer Common Workflow Language compatibility ([@vivian_2017] and [@giardine_2005]) and Galaxy furthermore provides a Graphical User Interface which is particularly useful for researchers with little to no programming experience [@giardine_2005]. The selection of a 
 
 
 PacBio errors are random, ONT not so much. Many indels (@giordano_2017) 
 
-1) Identify overlaps between reads
-2) Layout reads and overlaps on a graph
-3) Infer the consensus sequence [@li_2012]
-
-In a comparison of de novo MinION and PacBio assemblies of yeast genomes @giordano2017 
-
-
-Assembly of pacBio reads:
-Canu
-Falcon
-wtdbg2 [@wenger_2019]
-Peregrine [chen_2019]
-
-Nanopore:
-Canu
-Racon
-Falcon
-SMARTdenovo 
-PBcR-Self & Canu - best performers at low coverage [@giordano]
-
-
-
-- Generation of consensus reads
-- Assembly of consensus reads
-
-Including:
-- input data 
-- coverage
-- cpu hours
-- tools
-- polishing?
 
 DQA is an important task for de novo genome assembly and is especially useful today, as massive genome assemblies are in progress or available as drafts.
 
