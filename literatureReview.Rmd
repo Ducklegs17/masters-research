@@ -2,52 +2,33 @@
 title: "Literature Review"
 author: "Chelsea Matthews"
 date: "27 August 2019"
-output: html_document
+output: word_document
 bibliography: bibliography.bib
 ---
 
-Aim: 
-Explore strengths and weaknesses of main sequencing platforms. 
-Work out a range of relatively common ways that people use this data to get a de-novo assembly.
-Create a range of reproducible pipelines in snakemake or nextflow that use these methods for de-novo assembly. 
-Benchmark these pipelines and the associated tools using another reproducible pipeline in snakemake or nextflow and a quality metric to show how long methods take and the quality of what you get out. 
-
-
-- Sequencing techniques
-- Measuring assembly quality
-- Different Data types for assembly
-- Different methods/pipelines for de novo assembly
-- Reproducibility of a pipeline
-
-There is a large amount of research comparing sequencing platforms on their ability to produce high quality assemblies and likewise, a lot of work has gone into comparing the capabilities of different algorithms for de novo assembly. This research often includes estimates of CPU hours for a particulr algorithm with a specific number of reads from a particular genome to generate the assembly but there doesn't seem to be a resource that helps a person designing an experiment decide where to spend their money. And it appears as though the amount of time spent doing the bioinformatics portion of an assembly can be quite extensive but is often not included in the pricing for an experiment. For example, should they spend a heap of money on Pacbio hifi reads and generate an assembly with very little effort in the bioinformatics department or should they spend less money, get a high coverage of Illumina data and scaffold it with the help of MinION or PacBIO CLR reads, get a similar quality and ? Will you get a 
-
-A very important consideration when contemplating any sequencing project is how much the project will cost and it is important to realise that the cost of sequencing isn't always the most expensive part. 
-
-@sovi_2016
-
-Write about the total cost of a pipeline and how this impacts funding. 
 
 ## Aim
-
-Conduct a benchmarking study of de novo assembly pipelines using gold standard assembly tools and a range of common sequencing platforms for the rice strain MH63. This should include coverage requirements (and inferred associated sequencing costs), CPU hours for an assembly and a quality assessment of the resulting genome with a focus on the optimisation of available resources for a given project to meet time, cost and quaity requirements where possible.   
-Deliverables will include a selection of reproducible pipelines for de-novo genome assembly as well as for benchmarking assessment. 
+Conduct a benchmarking study of de novo assembly pipelines using gold standard assembly tools and a range of common sequencing platforms for the rice strain MH63. This should include coverage requirements (and inferred associated sequencing costs), CPU hours for an assembly and a quality assessment of the resulting genome with a focus on the optimisation of available resources for a given project to meet time, cost and quality requirements where possible.   
+Deliverables will include a range of reproducible pipelines for de-novo genome assembly as well as for benchmarking assessment. 
 
 
 ## Introduction
 
 There are two methods of genome assembly; comparative and de novo. Comparative assembly uses a reference genome of a closely related organism for guidance in the assembly process and is computationally cheap compared to de novo assembly, where overlapping reads are assembled from scratch using an assembly algorithm [@kyriakidou_2018]. When genomic sequencing techniques were first discovered, de novo assembly of a genome was the necessary first step in unlocking the secrets of DNA and now, even when a reference genome is available and despite the cheaper computational cost, de novo assembly is still often used to uncover variation that is masked when reads are aligned to a reference [@baker_2012; @chin_2019]. 
-There is obvious merit in having a high quality reference genome available for a particular organism but a high quality assembly isn't always the primary goal of a de novo sequencing project. This is because resource availability, including money, knowledge and time, heavily influences what assembly quality can reasonably be achieved. There is a huge amount of research available regarding the differences between assembly tools and underlying algorithms [@cherukuri_2016; @giordano_2017; @khan_2018], the quality of genomes assembled using data from different sequencing platforms [@wenger_2019; @giordano_2017] and the error profiles of sequencing technologies *[]*. However, there is a distinct lack of information available to help a researcher get the most from their available resources. An in-depth analysis of all possible combinations of data input and piplines would be impossible and so a literature review is used to finetune the scope of the project to ensure maximum utility. This includes an analysis of current sequencing technologies, methods of measuring assembly quality, a knowledge of different pipelines and methods for assembly as well as ways to ensure pipeline reproducibility, a key component of responsible, ethical research. 
+There is obvious merit in having a high quality reference genome available for a particular organism but a high quality assembly isn't always the primary goal of a de novo sequencing project. This is because resource availability, including money, knowledge and time, heavily influences what assembly quality can reasonably be achieved. There is a huge amount of research available regarding the differences between assembly tools and underlying algorithms [@cherukuri_2016; @giordano_2017; @khan_2018], the quality of genomes assembled using data from different sequencing platforms [@wenger_2019; @giordano_2017] and the error profiles of sequencing technologies [list of references here]. However, there is a distinct lack of information available to help a researcher get the most from their available resources. In filling this gap, a review of the current literature is completed which includes a comparison of current sequencing technologies, methods of measuring assembly quality, a knowledge of different pipelines and methods for assembly as well as ways to ensure pipeline reproducibility, a key component of responsible, ethical research. 
 
 ## First Generation Sequencing
 
-In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. Sanger sequencing nowadays costs approximately $5 US per sample which would likely yield reads of approximately 600bp in length [@biobasic_price]. 
+In 1953 the three-dimensional structure of DNA was solved by Watson and Crick [@watson_1953] but the next step, sequencing the order of nucleic acids, proved not to be trivial and it wasn't until 1977 that Sanger, Nickeln and Coulson published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" [@sanger_1977]. While this wasn't the first sequencing technique developed, it was robust, easy to use and accurate and became the most common methodology for DNA sequencing in the following years [@heather_2016]. This method, commonly called Sanger sequencing, is based on the chain termination method. By using DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides, double stranded fragments terminating at various different lengths are obtained. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides [@sanger_1977; @frana_2002]. Sanger sequencing nowadays costs approximately $5US per sample which would likely yield reads of approximately 600bp in length [@biobasic_price]. 
 
 ## Next Generation Techniques
-The next generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and was characterised by the ability to sequence millions of DNA fragments at the same time [@behjati_2013]. Next Gen techniques can be subdivided into at least two sub-categories; second and third generation. Second generation techniques still in use include platforms such as Illumina (originally Solexa), Ion Torrent and SOLiD (Sequencing by Oglionucleotide Ligation and Detection). Of these, Illumina is by far the most commonly used platform [@greenleaf_2014] and provides a range of options for both benchtop and production scale sequencing, producing both single and paired end reads of various lengths. Illumina uses a patented sequencing by synthesis technology where fluorescently tagged reversible terminators are imaged and cleaved as dNTPs are incorporated into a 'lawn' of amplified DNA fragments by DNA polymerase [@buermans_2014]. While this method results in very high quality reads (85% bp $\geq$ Q30 for 2 x 50bp versus 75% bp $\geq$ Q30 for 2 x 250bp on the NovaSeq 6000 System [@novaseq_nd]), the error distribution is not random [@schirmer_2016] *with what types of errors* and there are also limitations due to preferential amplification [@aird_2011; @krehenwinkel_2017] (though @pfeiffer_2018 found no evidence of bias due to amplificiation in NGS technologies in their study). *mention how cheap it is*
+
+The next generation of sequencing technology began to emerge around the same time that large-scale chain-termination methods were being developed [@heather_2016] and was characterised by the ability to sequence millions of DNA fragments at the same time [@behjati_2013]. Next Gen techniques can be subdivided into at least two sub-categories; second and third generation. Second generation techniques still in use include platforms such as Illumina (originally Solexa), Ion Torrent and SOLiD (Sequencing by Oglionucleotide Ligation and Detection). Of these, Illumina is by far the most commonly used platform [@greenleaf_2014] and provides a range of options for both benchtop and production scale sequencing, producing both single and paired end reads of various lengths. Illumina uses a patented sequencing by synthesis technology where fluorescently tagged reversible terminators are imaged and cleaved as dNTPs are incorporated into a 'lawn' of amplified DNA fragments by DNA polymerase [@buermans_2014]. While this method results in very high quality reads (85% bp $\geq$ Q30 for 2 x 50bp versus 75% bp $\geq$ Q30 for 2 x 250bp on the NovaSeq 6000 System [@novaseq_nd]), the error distribution is not random [@schirmer_2016] with a strong bias towards substitution errors following the motifs 'CGG' and 'GGG' [@schirmer_2016]. Many authors also report limitations due to preferential amplification [@aird_2011; @krehenwinkel_2017] though @pfeiffer_2018 found no evidence of bias in their study. Based on a recent quote, Illumina reads cost between 2.4 and 2.9c/Mb.
 
 There is some argument as to the defining difference between second and third generation sequencing technology but here it has been defined as the ability to sequence single molecules, thereby negating the need for amplification of DNA fragments and hence, removing the associated errors and biases [@schadt_2010]. PacBio provided the first widely used third generation technology using the SMRT (Single-Molecule, Real-Time) sequencing technique. In this technique, the real-time addition of bases is observed by immobilising a DNA polymerase in a Zero Mode Waveguide illuminated from below by a laser. This enables the detection of the incorporation of individual phospholinked nucleotides against the bulk solution background (see Figure 1 below) [@eid_2009]. PacBio sequencing also makes use of the SMRTbell template format where single stranded hairpin adapters are ligated to both ends of the double stranded fragment of DNA. Then, during sequencing using the SMRT platform, the DNA polymerase begins incorporating bases, starting at the primer, around the circular fragment. If it travels the full circle and reaches the location where it began, the DNA polymerase will displace the new strand and continue sequencing. Using this method, both the sense and anti-sense strands can be sequenced resulting in either very long reads of low quality (~15% error rate from a single pass raw read [@wei_2018]), or shorter more accurate reads (consensus sequences) can be generated from multiple passes of the molecule [@travers_2010] (see Figure 2). Unlike first and second generation technologies, PacBio errors are randomly distributed [@eid_2009] which means that consensus sequences greatly reduce basecalling error [@travers_2010] and that, in the case of very long fragments being sequenced, increasing coverage enables a consensus across reads to be reached (a method commonly used for polishing assemblies) [@chin_2013]. 
 
-*more about error profile and cost/throughput* 
+PacBio Hifi reads, an optimisation of circular consensus sequencing methods, [@wenger_2019] boast sequences that are both long and highly accurate. By selecting for fragments of approximately 15kb in length (using SageELF for separation into 3kb fractions and Agilent 2100 BioAnalyzer to identify fractions centered around 15kb), Sequel produced an average consensus sequence length of 13.5±1.2 kb with mean read concordance (when compared with the reference) at 99.8% (compared with 99.9% concordance for illumina reads). The recently released Sequel II boasts even greater accuracy than Sequel as well as higher throughput [@sequel2_blog]. This demonstrates the utility of PacBio Hifi reads with sequence lengths much greater than Sanger or Illumina reads as well as comparable accuracy.  
+*more about error profile and cost/throughput on sequel 2* 
 
 [@deamer_2016]
 
@@ -64,22 +45,22 @@ There is some argument as to the defining difference between second and third ge
 
 **Fix the pacbio github reference above. not sure how to reference without a doi**
 
-PacBio Hifi reads, an optimisation of circular consensus sequencing methods, [@wenger_2019] boast sequences that are both long and highly accurate. By selecting for fragments of approximately 15kb in length (using SageELF for separation into 3kb fractions and Agilent 2100 BioAnalyzer to identify fractions centered around 15kb), Sequel produced an average consensus sequence length of 13.5±1.2 kb with mean read concordance (when compared with the reference) at 99.8% (compared with 99.9% concordance for illumina reads). This demonstrates the utility of PacBio Hifi reads with sequence lengths much greater than Sanger or Illumina reads as well as comparable accuracy.  
-
 Apart from PacBio, Oxford Nanopore Technologies (ONT) is the other major provider of third generation sequencing technology. The MinION device was released in 2014 [@mikheyev_2014] and costs just $1000 US for a starter pack. It reports data in real time beginning just two minutes after the sequencing run begins (with 10 minutes sample preparation time using the Rapid Kit) and is literally pocket sized **(Reference Nanopore website here)**. Nanopore technology directly sequences a single strand of DNA by threading it through a nanopore using a molecular motor protein. As the molecule moves through the pore, with approximately 5 or 6 bases occupying the pore at one time, changes in current across the pore are measured and a basecaller is used to determine the nucleotide sequence based on these changes. Using this method, a 1D read can be obtained by sequencing the fragment in a single pass. To improve data quality, a technique to generate a 1D^2 read has been developed where both the sense and anti-sense strands are sequenced sequentially to generate a consensus sequence [@patel_2018]. @weirather_2017 estimated the raw error rate of 1D reads to be ~20% while @volden_2018 found a mean error rate of 13% for 1D reads. The 1D^2^ method improves read accuracy and can reduce the error rate to ~5% [@volden_2018] but, in comparison to PacBio Hifi reads (at 99.8% accuracy), this is still quite low. Due to the design of the nanopore platform, circularising DNA fragments, in a similar manner to PacBio Hifi reads, is not possible but there is work investigating the use of Rolling Circle Amplification to create long strands of cDNA with multiple copies of the fragment of interest before sequencing on nanopore platforms to emulate PacBio Hifi reads [@volden_2018] *(see Figure ?)*. 
 
-The error distribution in nanopore data is not entirely random with deletion errors in sequences overlapping homopolymers being reported as up to 2.6 times more likely [@stancu_2017]. In general, indels were the most common type of error with deletions accounting for approximately 9% of the total 15% while mismatches were the next most common type of error at 5.1% [@stancu_2017]. There are two main sources of error in nanopore reads; errors which occur during sequencing and are inherent in the raw data and errors made by the basecalling algorithm [@rang_2018]. In the latter case, the necessary information is present in the current but is called incorrectly by the basecaller [@rang_2018]. Of these, the second type can often be reduced by training a basecalling algorithm on a closely related species [@wick_2019]. The initial outlay for a MinION starter kit is just \$1000 US with additional sequencing kits costing approximately $600 US, depending on the type of kit. As an example, the 1D^2^ sequencing kit typically yields 8+ Gb in 48 hours which, assuming 8Gb equates to 7.5c/kb [@ont_store]. 
+The error distribution in nanopore data is not entirely random with deletion errors in sequences overlapping homopolymers being reported as up to 2.6 times more likely [@stancu_2017]. In general, indels were the most common type of error with deletions accounting for approximately 9% of the total 15% while mismatches were the next most common type of error at 5.1% [@stancu_2017]. There are two main sources of error in nanopore reads; errors which occur during sequencing and are inherent in the raw data and errors made by the basecalling algorithm [@rang_2018]. In the latter case, the necessary information is present in the current but is called incorrectly by the basecaller [@rang_2018]. Of these, the second type can often be reduced by training a basecalling algorithm on a closely related species [@wick_2019, @jain_2018]. The initial outlay for a MinION starter kit is just \$1000 US with additional sequencing kits costing approximately $600 US, depending on the type of kit. As an example, the 1D^2^ sequencing kit typically yields 8+ Gb in 48 hours which, assuming 8Gb equates to 7.5c/kb [@ont_store]. 
 
 ## Quality metrics
 
 There are a massive number of projects currently being undertaken involving the de novo assembly of previously unsequenced organisms. Some of these include the Global Invertebrates Genomics Alliance (GIGA) [@gigacommunityofscientists_2014], the Genome 10K Project [@koepfli_2015] and, most recently, the Earth BioGenome Project with the lofty goal of sequencing 'all of Earth's eukaryotic biodiversity over a period of ten years' [@lewin_2018] which includes a de novo assembly of at least one member from each family.
 
-With such a large number of sequencing projects underway [@gigacommunityofscientists_2014; @lewin_2018; @koepfli_2015], it is essential that we are able to accurately measure the quality and completeness of a de novo assembly [@yang_2019]. Probably the most commonly cited metric of assembly quality is contig N50 [@kyriakidou_2018] where a contig N50 of 1Mb implies that contigs of 1Mb and greater comprise 50% of the total assembly size. However, this only gives the reader an indication of the distribution of the contigs, can easily be manipulated through more or less stringent filtering of short contigs (ref here too https://www.molecularecologist.com/2017/04/the-first-problem-with-n50/) and can be artificially increased by specifying less stringent requirements for the concatenation of contigs [@gurevich_2013]. For these reasons, contig N50 alone isn't enough to measure assembly quality. QUAST, Quality Assessment Tool for genome assemblies released, improves on this by reporting contig Nx in addition to the total number of contigs, length of the largest contig, total length, GC content and the number of predicted genes in a de novo assembly [@gurevich_2013]. While this does give a better indication of the data distribution, it still doesn't give any information regarding base quality or the likely completeness of the assembly. 
+With such a large number of sequencing projects underway [@gigacommunityofscientists_2014; @lewin_2018; @koepfli_2015], it is essential that we are able to accurately measure the quality and completeness of a de novo assembly [@yang_2019]. Probably the most commonly cited metric of assembly quality is contig N50 [@kyriakidou_2018] where a contig N50 of 1Mb implies that contigs of 1Mb and greater comprise 50% of the total assembly size. However, this only gives the reader an indication of the distribution of the contigs, can easily be manipulated through more or less stringent filtering of short contigs [@molecularecologist_n50] and can be artificially increased by specifying less stringent requirements for the concatenation of contigs [@gurevich_2013]. For these reasons, contig N50 alone isn't enough to measure assembly quality. QUAST, Quality Assessment Tool for genome assemblies released, improves on this by reporting contig Nx in addition to the total number of contigs, length of the largest contig, total length, GC content and the number of predicted genes in a de novo assembly [@gurevich_2013]. While this does give a better indication of the data distribution, it still doesn't give any information regarding base quality or the likely completeness of the assembly. 
 
 Another approach to assessing assembly completeness is demonstrated by BUSCO (Benchmarking Universal Single-Copy Orthologs) which benchmarks the ortholog content of a new assembly against a curated ortholog set generated from a selection of organisms belonging to the same clade [@simo_2015; @waterhouse_2017]. BUSCO then reports the number of complete orthologs found with only a single copy, complete orthologs with multiple copies, fragmented orthologs and missing orthologs [@simo_2015]. The higher the number of complete single copy orthologs, the more complete the assembly is likely to be while high numbers of multiple copy orthologs are likely to indicate that the assembly of haplotypes is incorrect [@simo_2015]. Another method for assessing the completeness of an assembly (primarily in plants) is the LTR Assembly Index (LAI) [@ou_2018_lai]. Given that LRT Retrotransposons comprise a large portion of most plant genomes [@ou_2017] and that they are notoriously difficult to sequence due to their repetitive nature, a measure of assembly continuity of these regions is warranted [@ou_2018_lai]. Ou, Chen and Jiang noted that more complete genomes had a higher proportion of intract LTR elements when compared with less complete genomes (2018).To leverage this fact, they used LTR_retriever [@ou_2018_retriever] to first identify all LTR elements, then identified all intact LTR elements and finally applied a transformation to estimate LAI (see Equation 1 below) where LAI values less than 10 indicate draft genomes, between 10 and 20 are reference quality and LAI scores over 20 indicate gold standard assemblies [@ou_2018_lai]. 
 As many new assemblies obtain very high BUSCO scores [@ou_2018_lai], this method helps to further differentiate between a good and a great assembly by evaluating the quality of one of the more difficult to assemble region of the genome, if only in plants. 
 
+
 <br>
+Equation 1:
 
 $$LAI = \frac{Intact \space LTR \space element \space length}{Total \space LTR \space sequence \space length}\times 100 + 2.8138 \times (94 - Whole \space genome \space LTR \space identity)$$
 <br>
@@ -93,8 +74,8 @@ There are countless different paths to generating a de novo assembly but all of 
 The de novo assembly of a genome using long reads can be done in a number of ways and the complexity of these pipelines is somewhat dependent on the platform(s) selected for sequencing. For example, a simple pipeline for the assembly of a genome using PacBio Hifi reads would require the generation of consensus reads (ccs software) and the assembly of these reads into the final genome (peregrine) [@chin_2019]. In comparison, a hybrid assembly incorporating both nanopore and Illumina reads could require assembly of the nanopore reads (Canu), polishing contigs (racon), mapping the Illumina dataset to contigs (BWA mem) and error correction of contigs using the Illumina reads (pilon) [@nanoporetech_2016]. It should also be noted that hybrid assemblies can be completed in number of different ways, not limited to the following:  
 
 - Short reads are used for error correction of long reads prior to assembly [@goodwin_2015]
-- Nanopore reads used as scaffolds for the alignment of short reads [@ye_2016]
-- Short reads used to polish errors from the nanopore assembly [@nanoporetech_2016]
+- Long, low quality reads used as scaffolds for the alignment of short reads [@ye_2016]
+- Short reads used to polish errors from the long read assembly [@nanoporetech_2016]
 
 It's interesting to note that the first method listed above was developed primarily to overcome the fact that existing assembly algorithms (Overlap-Layout-Consensus, generally used for Sanger data and the deBrujn graph, developed for Illumina reads) were unable to cope with long, low quality reads that were typical of third generation sequencing technology. Correcting errors in long reads at the beginning of a pipeline made it possible to use assembly algorithms originally designed for sanger sequencing reads [@ye_2016], in particular those utilising the Overlap-Layout-Consensus algorithm. For assembly of long reads, the OLC algorithm appears to result in higher quality assemblies than the deBruijn graph [@cherukuri_2016] with higher coverage, larger average contig lengths and less contigs. 
 
@@ -102,107 +83,18 @@ There are many benchmarking studies comparing the performance of assembly and po
 
 The pipelines discussed so far are all in relation to a single source of input data but hybrid approaches are common and can be very useful for managing costs while still obtaining a high quality assembly **(get a ref if possible)**. In addition to the pipelines above, @giordano_2017 also investigated a few hybrid pipelines using long reads for scaffolding a short read assembly. They tested npScarf, HybridSPAdes and SMIS, all with a SPAdes MiSeq assembly and found that npScarf resulted in the least contigs (21 for ONT and 22 for PacBio) and in the least processing time but that these contigs were heavily impacted by misassemblies. HybridSPAdes produced assemblies with the greatest reference coverage, the least mis-assemblies and the most genes but at the cost of CPU hours (for ONT, HybridSPAdes was 6 times slower than npScarf and 1.3 times slower than SMIS, for PacBio HybridSPAdes was 13 times slower than npScarf and 3 times slower than SMIS) [@giordano_2017]. Hybrid pipelines tested by @minei_2018 include SPAdes and MaSuRCA and they found that SPAdes resulted in an assembly with quality similar to a short read only assembly while MaSuRCA performed very well with the highest assembly quality and less contigs than the reference. 
 
-write 300 more words on software.
+**write more about different pipelines and tools for assembly. Polishing section.**
 
 ## Reproducibility
+
 Science depends on researchers being able to replicate the work of others but unfortunately, this isn't always possible. @baker found in a survey of 1500 scientists tht 70% of researchers had been unable to reproduce another scientist's experiment at some point while, even more worrying, 50% were unable to reproduce one of their own experiments. In bioinformatics, reproducibility refers specifically to being able to obtain the exact same results for an analysis using the original dataset and code but, even when the data and code are supplied, this isn't always possible [@kim_2018]. @kim_2018 suggest that the main barrier to reproducibility is the incompatibility among environments, software versions and different languages while @kulkarni_2018 attribute these issues to the short half-life of bioinformatics software, complexity of pipelines, uncontrolled effects induced by changes to system libraries and the imprecision in workflow descriptions. To combat these difficulties, @kim_2018 recommend that researchers ensure their code is well written, well tested and made available in online repositories. They further suggest that a detailed step-by-step process in a Jupyter/IPython notebook or a ready-to-run Docker container should be provided to make reproduction attempts as easy as possible [@kim_2018]. The provision of a well documented Jupyter notebook would certainly be very useful in a reproduction attempt but version control is difficult in Jupyter notebook and it can be difficult to carry out extensive testing in that environment [@mueller_2018]. However, the notion of Docker containers is worth further investigation and leads us to workflow management systems. 
 
-There are currently over 200 workflow management systems available, all with different pros and cons. Some popular choices include Nextflow, Snakemake, Galaxy and Toil. Generally, workflow management systems provide infrastructure to help users build and execute pipelines and, in doing so, help to ensure reproducibility [@leipzig_2017]. They track execution provenance, allow parallel execution of tasks [@ditommaso_2017] and provide workflow diagrams to help the user visualise the order of the steps being executed in a particular pipeline [@mallawaarachchi_2018]. Nextflow, probably the most popular choice of workflow management system [], also uses Docker technology for multi-scale containerisation which, according to @ditommaso_2017, is necessary to ensure numerical stability of a pipeline across different computational platforms. While the selection of a workflow management system is partly a personal preference, some systems offer advanced functionality that may be particularly useful. For example, both Galaxy and Toil also allow for multi-scale containerisation while Snakemake does not. Snakemake also doesn't offer cloud compatibility while Nextflow, Galaxy and Toil do. Both Toil and Galaxy offer Common Workflow Language compatibility ([@vivian_2017] and [@giardine_2005]) and Galaxy furthermore provides a Graphical User Interface which is particularly useful for researchers with little to no programming experience [@giardine_2005]. 
+There are currently over 200 workflow management systems available, all with different pros and cons. Some popular choices include Nextflow, Snakemake, Galaxy and Toil. Generally, workflow management systems provide infrastructure to help users build and execute pipelines and, in doing so, help to ensure reproducibility [@leipzig_2017]. They track execution provenance, allow parallel execution of tasks [@ditommaso_2017] and provide workflow diagrams to help the user visualise the order of the steps being executed in a particular pipeline [@mallawaarachchi_2018]. Nextflow, probably the most popular choice of workflow management system [ref here], also uses Docker technology for multi-scale containerisation which, according to @ditommaso_2017, is necessary to ensure numerical stability of a pipeline across different computational platforms. While the selection of a workflow management system is partly a personal preference, some systems offer advanced functionality that may be particularly useful. For example, both Galaxy and Toil also allow for multi-scale containerisation while Snakemake does not. Snakemake also doesn't offer cloud compatibility while Nextflow, Galaxy and Toil do. Both Toil and Galaxy offer Common Workflow Language compatibility ([@vivian_2017] and [@giardine_2005]) and Galaxy furthermore provides a Graphical User Interface which is particularly useful for researchers with little to no programming experience [@giardine_2005]. 
 
 ## Conclusion
 
-Even when constrained to considering only the common sequencing platforms, there are major differences in read quality, error profiles, read lengths and cost. Illumina platforms generate high quality short reads at a cost of approximately ??? while Nanopore reads are very long (up to ?bp) and low quality but at a low price (? per kbp). PacBio offers two main options, very long, low quality reads (similar to nanopore) or shorter (15kbp), very high quality reads (Hifi reads). 
-There are also a huge number of different tools and pipelines that can be used to create a de novo assembly from just these four data types and a great number of ways to measure the quality of an assembly. 
+Even when constrained to considering only the common sequencing platforms, there are major differences in read quality, error profiles, read lengths and cost. Illumina platforms generate high quality short reads at a very low cost while Nanopore reads are very long (up to 100kb) and low quality but also at a relatively low price when compared with Sanger sequencing. PacBio offers two main sequencing options; very long, low quality reads (similar to nanopore) or shorter (~15kbp), very high quality reads (Hifi reads). From just these four sequencing types, there are a huge number of different ways that a de novo assembly can be generated including both single source and hybrid methods. Of particular interest are assemblies from PacBio Hifi reads, ONT reads, PacBio long reads, ONT reads with Illumina polishing and PacBio long reads with Illumina Polishing. Popular tools for these assemblies include Canu, Nanopolish, **(more here based on rest of review)**. In assessing the quality of a de novo assembly, there is no real consensus as to the best method but measures of contig length and distribution, scaffold length and distribution, conserved gene content and basecall quality are common measures. Pipeline reproducibility is an essential part of any bioinformatics project as, without it, results aren’t able to be confirmed. When findings aren’t able to be ratified by other researchers, scientific progress is hampered. By using a workflow management system in an aware and responsible manner, a bioinformatician can ensure that, at the very least, their pipelines and analysis are reproducible. 
 
-Pipeline reproducibility is an essential part of any bioinformatics project as, without it, results aren’t able to be confirmed. When scientific findings aren’t able to be ratified by other researchers,  
-
-
-PacBio errors are random, ONT not so much. Many indels (@giordano_2017) 
-
-
-DQA is an important task for de novo genome assembly and is especially useful today, as massive genome assemblies are in progress or available as drafts.
-
-- SQUAT [@yang_2019] - SQUAT sequence quality assessment tool for de novo assemblies
-
-- general pipeline for illumina/second gen) reads
-- general pipeline for 3rd gen reads
-- pipeline for fourth gen reads
-- comparison of assembly with only illumina paired end reads vs longer poorer quality reads
-- justify only looking at methods using long reads of some kind. 
-
-## Gold Standard assembly algorithms review
-
-
-[@liu_2012] - comparison of next generation sequencing systems
-
-
-There are numerous possible pipelines for a de novo assembly. Here we will consider and benchmark four different approaches:
-
-- PacBio Hifi reads only (28x coverage with reads ~15kb long) using ??
-- MinION reads only (52X coverage and 15x coverage by reads > 100kb) Racon + miniasm [@vaser_2017]
-- MinION with Illumina polishing (illumina coverage 2 x 250bp (350bp gaps) at 40-50x coverage)
-- MinION with PacBio Hifi reads for polishing
-
-
-- pacbio hifi - comparison to all?. genome in 100 minutes. 
-
-[@weirather_2017] - Comprehensive comparison of Pacific Biosciences and Oxford Nanopore Technologies and their applications to transcriptome analysis
-
-[@giordano_2017] - De novo yeast genome assemblies from MinION, PacBio and MiSeq platforms
-
-## Technology comparison for de novo assembly
-
-- using both long and short reads (for polishing?) or consider polishing with pacbio hifi.
-
-Illumina:
-[@khan_2018] - study of de novo genome assemblers for paired end and single reads for illumina, uses prokaryotes and eukaryotes
-
-
-Nanopore
-It should also be noted that errors in calling bases in homopolymers are very common in nanopore reads but it has been demonstrated that improvements to the basecalling algorithm can reduce these errors [@jain_2018].
-
-## PacBio and Nanopore algorithms
-
-Discuss algorithms (sorted by algorithm type) and refer back to the different types of sequencing. 
-
-Problems with assembly? What can go wrong? How do the limitations of the sequencing platforms and assembly tools transfer into sequencing errors? 
-
-Genome assembly quality (with and without a reference).
-With a reference
--Quast
-        
-Without a reference. Explain why this is more difficult. 
-- N50
-- BUSCO score
-- LTR Retrotransposons (particularly for plants?)
-
-
-
-
-### Conclusion
-Many authors have investigated the differences in genome quality and CPU hours between a range of different assembly tools/algorithms while others focus more on ???. Nowhere is there a single resource that informs a bioinformatician of the pros and cons at every decision along the way of generating a de-novo assembly which is supported by rigorous benchmarking and the provision of reproducible pipelines. 
-
-******
-
-# Outline
-
-Introduction
-
-Sequencing platforms available + strengths and weaknesses
-
-De novo assembly and 
-
-Quality assessment
-
-Snakemake and Nextflow
-
-*****
-
-For example, python can be used. 
-
-Review quality trimming tools
-
-Review tools based on algorithms used. 
 
 ```{python, engine.path = '/home/chelsea/anaconda3/bin/python3'}
 import sys
