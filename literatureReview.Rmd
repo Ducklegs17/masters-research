@@ -2,6 +2,8 @@
 title: "Literature Review"
 author: "Chelsea Matthews"
 date: "7th October 2019"
+header-includes:
+  \usepackage{float}
 output: 
   pdf_document:
     number_sections: true
@@ -10,14 +12,16 @@ output:
 bibliography: bibliography.bib
 ---
 
+\pagebreak
+
 # Aim
 To find evidence and provide guidance on the selection of sequencing technologies and assembly methods to provide adequate assembly quality within constrained resources. 
 This will be achieved through a benchmarking study of de novo assembly pipelines using gold standard assembly tools and a range of sequencing platforms for the rice strain Minghui 63. This should include coverage requirements (and inferred associated sequencing costs), CPU hours for an assembly and a quality assessment of the resulting genome with a focus on the optimisation of available resources for a given project to meet time, cost and quality requirements where possible.   
-Deliverables will include a range of reproducible pipelines for de-novo genome assembly as well as for benchmarking assessment. 
+Deliverables will include a range of reproducible pipelines for de-novo genome assembly and benchmarking assessment. 
 
 # Introduction
 
-There are two primary methods of genome assembly; a reference-guided assembly where reads are compared with a reference genome of the same species or a closely related organism and a de novo assembly where overlapping reads are assembled from scratch using an assembly algorithm [@kyrikidou_2018]. Reference-guided assembly (often termed resequencing when a reference genome of the same species is used) is computationally cheap compared with de novo assemblies which essentially require an 'all-to-all' comparison of reads. However, reference-guided assemblies are often plagued by reference bias, where variation not present in the reference genome is missed in the genome being assembled. De novo assembly requires a greater depth of genome coverage but solves the reference bias problem [@baker_2012; @chin_2019]. 
+There are two primary methods of genome assembly; a reference-guided assembly where reads are compared with a reference genome of the same species or a closely related organism and a de novo assembly where overlapping reads are assembled from scratch using an assembly algorithm [@kyriakidou_2018]. Reference-guided assembly (often termed resequencing when a reference genome of the same species is used) is computationally cheap compared with de novo assemblies which essentially require an 'all-to-all' comparison of reads. However, reference-guided assemblies are often plagued by reference bias, where variation not present in the reference genome is missed in the genome being assembled. De novo assembly requires a greater depth of genome coverage but solves the reference bias problem [@baker_2012; @chin_2019]. 
 
 In bacteria, de novo assembly is fairly routine as the small genome size results in a low complexity of assembly which, in turn, results in a cheap assembly. As genome size increases, de novo assembly becomes much more expensive due to the increased complexity of the assembly and hence, the amount of work and time required. In a complex de novo assembly, the cost of the sequencing itself becomes insignificant (per kb) when compared with the cost of the bioinformaticians time. 
 
@@ -25,17 +29,18 @@ While a high quality assembly is obviously preferred, it is not always possible 
 
 # The First Human Assembly
 
-The first human genome assembly was a mammoth task and began in 1990 with a budget of \$3 billion US [@HGP_2003]. The project completed two years ahead of schedule (and under budget) in 2003 and resulted in an assembly that covered approximately 99% of the gene-containing regions of the genome and was 99.99% accurate [@HGP_2003]. This project was made possible by Sanger, Nickeln and Coulson when they published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" in 1977. In this paper, they introduced what is now termed Sanger sequencing, a method of sequencing DNA that is relatively robust, easy to use and accurate and was the method of choice for the Human Genome Project. Sanger sequencing uses DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides which results in a library of double stranded fragments terminating at various different locations. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides (See Figure 1 below for further detail on this process) [@sanger_1977; @frana_2002].
+The first human genome assembly was a mammoth task and began in 1990 with a budget of \$3 billion US [@HGP_2003]. The project completed two years ahead of schedule (and under budget) in 2003 and resulted in an assembly that covered approximately 99% of the gene-containing regions of the genome and was 99.99% accurate [@HGP_2003]. This project was made possible by Sanger, Nickeln and Coulson when they published their gamechanging paper "DNA sequencing with chain-terminating inhibitors" in 1977. In this paper, they introduced what is now termed Sanger sequencing, a method of sequencing DNA that is relatively robust, easy to use and accurate and was the method of choice for the Human Genome Project. Sanger sequencing uses DNA Polymerase to synthesise the complementary strand of a single-stranded DNA molecule in the presence of a small number of chain-terminating dideoxynucleotides which results in a library of double stranded fragments terminating at various different locations. Through fractioning these fragments with electrophoresis, the resulting bands give the sequence of nucleotides (See Figure \ref{fig:sangerSeq} below for further detail on this process) [@sanger_1977; @frana_2002].
 
-<br>
+\ref{fig:sangerSeq}
 
-<center>
+```{r sangerSeq, fig.width=8,echo=FALSE,fig.cap="\\label{fig:sangerSeq}Sanger Sequencing technique.",out.extra='', fig.pos='H'}
+library(png)
+library(grid)
+img <- readPNG("images/sanger_method.png")
+ grid.raster(img)
+```
 
-![The Sanger Sequencing technique. Source: @gauthier_2007](images/sanger_method.png){width=70%}
-
-</center>
-
-<br>
+**Source: @gauthier_2007.**
 
 Sanger sequencing yields highly accurate reads (99.99% accurate) of approximately 600bp in length (up to a maximum of ~1000bp [@]) and errors tend to be primarily substitutions [@lutteropp_2017]. However, despite advances in sanger sequencing technology resulting in improved throughput and reduced cost, it was, and still is, prohibitively expensive (~\$5 US for between 1 and 10 samples down to ~\$3 US for between 97 and 480 samples (taken from @biobasic_price)) and slow. Enter high throughput sequencing. 
 
@@ -45,15 +50,16 @@ The next generation of sequencing technology began to emerge around the same tim
 
 ## Second Generation
 
-Illumina is by far the most commonly used second generation technology [@greenleaf_2014]. It provides a range of options for both benchtop and production scale sequencing and is capable of producing both single and paired end reads of various lengths (up to 250bp). Illumina uses a patented sequencing by synthesis technology. First, library preparation is completed by randomly fragmenting DNA and ligating adapters to both ends of each fragment. These fragments are then PCR amplified and purified to form the library. This library is then loaded onto a flow cell where each fragment is amplified into a cluster so that sequencing can begin. The sequencing process itself consists of imaging fluorescently tagged reversible terminators as they are incorporated and then cleaved from the fragment clusters by DNA polymerase [@buermans_2014]. See Figure 2 below for more detail on cluster generation and sequencing. 
+Illumina is by far the most commonly used second generation technology [@greenleaf_2014]. It provides a range of options for both benchtop and production scale sequencing and is capable of producing both single and paired end reads of various lengths (up to 250bp). Illumina uses a patented sequencing by synthesis technology. First, library preparation is completed by randomly fragmenting DNA and ligating adapters to both ends of each fragment. These fragments are then PCR amplified and purified to form the library. This library is then loaded onto a flow cell where each fragment is amplified into a cluster so that sequencing can begin. The sequencing process itself consists of imaging fluorescently tagged reversible terminators as they are incorporated and then cleaved from the fragment clusters by DNA polymerase [@buermans_2014]. See Figure \ref{fig:sbsSeqTech} below for more detail on cluster generation and sequencing. 
 
-<br>
-<center>
+```{r sbsSeqTech,echo=FALSE,fig.cap="\\label{fig:sbsSeqTech}Illumina cluster generation and sequence imaging.",out.extra='', fig.pos='H'}
+library(png)
+library(grid)
+img <- readPNG("images/illumina_method.png")
+ grid.raster(img)
+```
 
-![Illumina cluster generation and sequence imaging. Source: @illumina_image](images/illumina_method.png){width=100%}
-
-</center>
-<br>
+**Source: @illumina_image**
 
 While this method results in high quality reads (~99.8 accuracy in forward reads and ~99.6 for reverse reads), the error distribution is not random. Substitutions are the main type of error, being more than 1000 times more likely than insertions or deletions and more likely to occur following the motifs 'CGG' and 'GGG' [@schirmer_2016]. Errors also tend to accumulate near the end of the read due to phasing issues during the run obscuring the true signal from a cluster. Many authors also report limitations due to preferential amplification where fragments with very low or very high GC content are amplified less well, shorter fragments are amplified preferentially and sequence mismatches in the priming sites of the fragments affects priming and hence, amplification [@aird_2011; @krehenwinkel_2017]. Sequencing by synthesis is cheap (costing between 2.4 and 2.9c/Mbp based on a recent quote from Illumina) and fast and it's introduction to the market made sequencing many times more affordable. So much so that in 2014, Illumina advertised the first \$1000 human genome [@illumina_1000genome] and costs have decreased yet further since then. However, due to the short length of illumina reads, repetitive areas of the genome are very difficult to assemble and de novo assemblies are highly fragmented. 
 
@@ -63,63 +69,67 @@ Single Molecule Sequencing was introduced to the market by Pacific Biosciences (
 
 ### PacBio
 
-PacBio sequencing uses a patented SMRT (Single-Molecule, Real-Time) cell and creates a 'movie' of the real-time incorporation of bases into a strand. To achieve this, a DNA polymerase is immobilised in a Zero Mode Waveguide and illuminated from below by a laser which enables the detection of the incorporation of individual phospholinked nucleotides into the strand against the bulk solution background [@eid_2009] (see Figure 3 below for more detail).  
+PacBio sequencing uses a patented SMRT (Single-Molecule, Real-Time) cell and creates a 'movie' of the real-time incorporation of bases into a strand. To achieve this, a DNA polymerase is immobilised in a Zero Mode Waveguide and illuminated from below by a laser which enables the detection of the incorporation of individual phospholinked nucleotides into the strand against the bulk solution background [@eid_2009] (see Figure \ref{fig:pacBioSMRT} below for more detail).  
 
-<br>
-<center>
+```{r pacBioSMRT, fig.width=8,echo=FALSE,fig.cap="\\label{fig:pacBioSMRT}SMRT DNA sequencing. Each SMRT cell consists of an aluminium plate covered with 'wells' and a glass bottom. A DNA polymerase is immobilised in the bottom of each well inside a Zero Mode Waveguide. The chained polymerase incorporates phospholinked nucleotides from the solution into the single stranded fragments of interest while being illuminated from below by a laser. Because the nucleotide incorporation is occuring inside of the Zero Mode Waveguide, the light emission from the excited phospholinked nucleotides can be detected through the glass on the bottom of the plate despite the saturation of phospholinked nucleotides in the background.",out.extra='', fig.pos='H'}
+library(png)
+library(grid)
+img <- readPNG("images/pacbioSMRT.png")
+ grid.raster(img)
+```
 
-![Figure 3: SMRT DNA sequencing. Each SMRT cell consists of an aluminium plate covered with 'wells' and a glass bottom. A DNA polymerase is immobilised in the bottom of each well inside a Zero Mode Waveguide. The chained polymerase incorporates phospholinked nucleotides from the solution into the single stranded fragments of interest while being illuminated from below by a laser. Because the nucleotide incorporation is occuring inside of the Zero Mode Waveguide, the light emission from the excited phospholinked nucleotides can be detected through the glass on the bottom of the plate despite the saturation of phospholinked nucleotides in the background. Source: [@eid_2009]](images/pacbioSMRT.png){width=50%}
- 
-</center>
-<br>
+Source: @eid_2009
 
 In addition to the SMRT cell, PacBio also makes use of the SMRTbell template. The SMRTbell template (shown in Figure 4 below) allows the DNA polymerase to continue incorporating bases around a circular single stranded molecule containing both the sense and antisense strands. Using this method, a consensus read can be called from multiple passes of the molecule. A single-pass sequence from PacBio will have an accuracy of approximately 85% [@wei_2018] but by calling a consensus from multiple passes of the same fragment, very high quality reads are able to be generated. This is particularly successful due to the random nature of the error distribution in PacBio single pass reads. Errors are predominantly deletions and insertions but are randomly distributed [@eid_2009] and so are easily removed when a consensus sequence is generated [@travers_2010]. PacBio reads also don't display any GC bias and so can be used for uniform sequencing of an entire genome [ref here]. 
 
-<br>
-<center>
-![Hifi Read generation. First, single stranded hairpin adapters are ligated to both ends of a double stranded fragment of DNA. Primers are then annealed and the DNA polymerase begins to extend the primer from one of the hairpin loops. The polymerase incorporates bases around the hairpin and displaces one strand of the double stranded fragment to form a circular single strand of DNA. The polymerase continues incorporating bases until it reaches the primer where it began. It displaces the primer and continues incorporating bases around and around the circular strand, sequencing both the sense and antisense strands multiple times. This allows a consensus to be called which allows reads of high quality to be generated. Source: @pacbio_hifi](images/How-to-get-HiFi-reads_clear.png){width=70%}
-
-</center>
-<br>
-
 #### Hifi Reads
 
-PacBio is capable of producing two different types of reads; Hifi reads and Continuous Long Reads (CLRs). Hifi reads are generated by selecting insert fragments of up to 20kbp and calling a consensus sequence from the subreads generated (see Figure 4 above). The accuracy of a hifi read is dependent on the number of passes made by the DNA polymerase; the more passes, the greater the accuracy. For example, with an average of 10 passes over each fragment in a tightly distributed 20kbp library, the average hifi read accuracy was 99.8% [@wenger_2019]. This is comparable to the accuracy of Illumina reads but with much greater length [@wenger_2019]. The length and quality of hifi reads means that they can be used to assemble high quality and highly contiguous de novo assemblies. 
+PacBio is capable of producing two different types of reads; Hifi reads and Continuous Long Reads (CLRs). Hifi reads are generated by selecting insert fragments of up to 20kbp and calling a consensus sequence from the subreads generated (see Figure \ref{fig:hifi} below). The accuracy of a hifi read is dependent on the number of passes made by the DNA polymerase; the more passes, the greater the accuracy. For example, with an average of 10 passes over each fragment in a tightly distributed 20kbp library, the average hifi read accuracy was 99.8% [@wenger_2019] (see Figure \ref{fig:hifidist} below for the read distribution of this library). This is comparable to the accuracy of Illumina reads but with much greater length [@wenger_2019]. The length and quality of hifi reads means that they can be used to assemble high quality and highly contiguous de novo assemblies. 
 
-<br>
-<center>
+```{r hifi,echo=FALSE,fig.cap="\\label{fig:hifi}Hifi Read generation. First, single stranded hairpin adapters are ligated to both ends of a double stranded fragment of DNA. Primers are then annealed and the DNA polymerase begins to extend the primer from one of the hairpin loops. The polymerase incorporates bases around the hairpin and displaces one strand of the double stranded fragment to form a circular single strand of DNA. The polymerase continues incorporating bases until it reaches the primer where it began. It displaces the primer and continues incorporating bases around and around the circular strand, sequencing both the sense and antisense strands multiple times. This allows a consensus to be called which allows reads of high quality to be generated.",out.extra='', fig.pos='H', fig.asp=0.5}
 
-![Hifi read length distribution (before consensus calling) from a 20kbp size selected library on the Sequel II System. Source: @pacbio_smrt ](images/hifi_readlengths.jpg){width=70%}
+img <- readPNG("images/How-to-get-HiFi-reads_clear.png")
+grid.raster(img)
+```
+**Source: @pacbio_hifi.**
 
-</center>
-<br>
+```{r hifidist, fig.width=8,echo=FALSE,fig.cap="\\label{fig:hifidist}Hifi read length distribution (before consensus calling) from a 20kbp size selected library on the Sequel II System.",out.extra='', fig.pos='H'}
+library(png)
+library(grid)
+img <- readPNG("images/hifi_readlengths.png")
+ grid.raster(img)
+```
+
+**Source: @pacbio_smrt.**
 
 #### Continuous Long-Reads
 
-CLRs are generated when the insert fragments are particularly large (up to 100kbp). For example, a 35kb size selected library on the Sequel 2 System produced CLR reads with an N50 of over 50 kbp (see Figure 6 below for detail on read distribution) [@pacbio_smrt]. Because of their length, CLRs are particularly useful for de novo assembly (particularly of repetitive regions) and detection of structural variants. Because of the random error distribution in PacBio reads, a consensus across a number of long reads can also be generated to increase the accuracy of an assembly [@chin_2013].   
+CLRs are generated when the insert fragments are particularly large (up to 100kbp). For example, a 35kb size selected library on the Sequel 2 System produced CLR reads with an N50 of over 50 kbp (see Figure \ref{fig:longreaddist} below for detail on read distribution) [@pacbio_smrt]. Because of their length, CLRs are particularly useful for de novo assembly (particularly of repetitive regions) and detection of structural variants. Because of the random error distribution in PacBio reads, a consensus across a number of long reads can also be generated to increase the accuracy of an assembly [@chin_2013].   
 
 * talk about costs for hifi and clrs
 * Talk about throughput for hifi and clrs
 
-<br>
-<center>
+```{r longreaddist, fig.width=8,echo=FALSE,fig.cap="\\label{fig:longreaddist}PacBio read length distribution of a 35 kb size selected library.",out.extra='', fig.pos='H', fig.asp=0.8}
+library(png)
+library(grid)
+img <- readPNG("images/pacbio_longread_lengthdist.png")
+ grid.raster(img)
+```
 
-![PacBio read length distribution of a 35 kb size selected library. Source: @pacbio_smrt](images/pacbio_longread_lengthdist.jpg){width=70%}
-
-</center>
-<br>
+Source: @pacbio_smrt
 
 ### Oxford Nanopore Technologies
 
-ONT is the other major provider of single molecule sequencing technology. The MinION device was released in 2014 [@mikheyev_2014] and costs just $1000 AU for a MinION starter pack containing a single flow cell. It reports data in real time beginning just two minutes after the sequencing run begins (with 10 minutes sample preparation using the Rapid Kit) and is literally pocket sized **(Reference Nanopore website here)**. ONT offers devices ranging from very small portable sequencers suitable for field work to benchtop sequencers such as PromethION which runs up to 48 flow cells at any one time. All ONT devices, regardless of size, work in the same way. A single strand of DNA is threaded through a nanopore and changes in current across the pore are measured (see Figure 6 below for more details on nanopore sequencing). A basecalling algorithm is then used to determine the actual sequence of the fragment.
+ONT is the other major provider of single molecule sequencing technology. The MinION device was released in 2014 [@mikheyev_2014] and costs just $1000 AU for a MinION starter pack containing a single flow cell. It reports data in real time beginning just two minutes after the sequencing run begins (with 10 minutes sample preparation using the Rapid Kit) and is literally pocket sized **(Reference Nanopore website here)**. ONT offers devices ranging from very small portable sequencers suitable for field work to benchtop sequencers such as PromethION which runs up to 48 flow cells at any one time. All ONT devices, regardless of size, work in the same way. A single strand of DNA is threaded through a nanopore and changes in current across the pore are measured (see Figure \ref{fig:nanopore} below for more details on nanopore sequencing). A basecalling algorithm is then used to determine the actual sequence of the fragment.
 
-<br>
-<center>
+```{r nanopore, echo=FALSE,fig.cap="\\label{fig:nanopore}Nanopore sequencing. A) The double stranded fragment of DNA is unwound by the unwinding enzyme at the top of the nanopore so that a single strand of DNA is threaded through the nanopore by a molecular motor protein (not shown). Three bases primarily occupy the pore at any one time with some small influence from flanking nucleotides (Rang, Kloosterman, and Ridder 2018). As the strand moves through the pore, changes in current across the pore are measured and recorded. B) These changes in current are called a squiggle and require interpretation to determine the actual base sequence. This interpretation is done using a basecaller.",fig.asp=0.55}
+library(png)
+library(grid)
+img <- readPNG("images/nanopore_method.png")
+ grid.raster(img)
+```
 
-![Nanopore sequencing. A) The double stranded fragment of DNA is unwound by the unwinding enzyme at the top of the nanopore so that a single strand of DNA is threaded through the nanopore by a molecular motor protein (not shown). Three bases primarily occupy the pore at any one time with some small influence from flanking nucleotides [@rang_2018]. As the strand moves through the pore, changes in current across the pore are measured and recorded. B) These changes in current are called a squiggle and require interpretation to determine the actual base sequence. This interpretation is done using a basecaller. Source: Adapted from @minion_comp_requirements and @gpfrich_2018](images/nanopore_method.png){width=100%}
-
-</center>
-<br>
+Source: Adapted from @minion_comp_requirements and @gpfrich_2018
 
 With current nanopore technology, the DNA strand doesn't move through the pore at a constant or predictable rate [@rang_2018] and so it can be difficult to determine whether two adjacent measurements are from the same or different k-mers. Current basecallers use recurrent neural networks for base prediction and require training to optimise parameters. Base recall can be improved by training a basecaller on a closely related species [@wick_2019; @jain_2018] as genome structure, codon usage and DNA modifications can vary between species [@rang_2018]. 
 
@@ -131,25 +141,30 @@ By passing a single strand of DNA through a nanopore, a 1D read is obtained. Bas
 
 #### 1D^2^ nanopore reads
 
-ONT also offer 1D^2^ reads. This technique enables both the sense and anti-sense strands of a DNA fragment to be sequenced sequentially so that a consensus sequence can be generated [@patel_2018] (see Figure 7 below for a comparison of 1D and 1D^2^ sequencing methods). Using this method, base accuracy is increased to approximately 95% [@volden_2018].
+ONT also offer 1D^2^ reads. This technique enables both the sense and anti-sense strands of a DNA fragment to be sequenced sequentially so that a consensus sequence can be generated [@patel_2018] (see Figure \ref{fig:1d2nan} below for a comparison of 1D and 1D^2^ sequencing methods). Using this method, base accuracy is increased to approximately 95% [@volden_2018].
 
-<br>
-<center>
+```{r 1d2nan, fig.width=8,echo=FALSE,fig.cap="\\label{fig:1d2nan}1D vs $1D^2$ nanopore reads. For a 1D read, only the template strand (blue) is threaded through the nanopore (grey) by the molecular motor protein (green). For $1D^2$ reads, both the template and complement strand (orange) are sequenced by tethering the complement strand to the membrane."}
+library(png)
+library(grid)
+img <- readPNG("images/nanopore_1D2_edit.png")
+ grid.raster(img)
+```
 
-![1D vs 1D^2^ nanopore reads. For a 1D read, only the template strand (blue) is threaded through the nanopore (grey) by the molecular motor protein (green). For 1D^2^ reads, both the template and complement strand (orange) are sequenced by tethering the complement strand to the membrane. Source: Adapted from @delannoy_2017](images/nanopore_1D2_edit.png){width=60%}
+Source: Adapted from @delannoy_2017
 
-</center>
-<br>
+Base accuracy of nanopore reads is greatly improved using the 1D^2^ method but is unable to match PacBio Hifi reads for accuracy (99.8%). With the current nanopore technology, it is not possible to directly sequence a circular fragment to generate more than two-fold coverage of a read while PacBio sequences the fragment of interest many times when generating a Hifi read. 
 
-Base accuracy of nanopore reads is greatly improved using the 1D^2^ method but is unable to match PacBio Hifi reads for accuracy (99.8%). With the current nanopore technology, it is not possible to directly sequence a circular fragment to generate more than two-fold coverage of a read while PacBio sequences the fragment of interest many times when generating a Hifi read. To increase nanopore read accuracy, @volden_2018 investigated the use a technique called Rolling Circle Amplification to Concatomeric Consensus (R2C2). This method (detailed in Figure 8 below) allows greater depth of coverage to be acheived and resulted in reads with an overall mean accuracy of 94% with accuracy increasing up to 97.5% for reads with greater than 10x coverage. It is also important to note that not all fragments are sequenced twice using the 1D^2^ technique. On a single flow cell with 1D^2^ chemistry, @volden_2018 obtained 1 million 1D reads and 50,000 1D^2^ reads. While other authors report higher ratios of 1D^2^ to 1D reads, this demonstrates that the output of 1D^2^ reads can be quite low. 
+#### Working Towards a Nanopore 'Hifi' Read
+
+To increase nanopore read accuracy, @volden_2018 investigated the use a technique called Rolling Circle Amplification to Concatomeric Consensus (R2C2). This method (detailed in Figure \ref{fig:rca} below) allows greater depth of coverage to be acheived and resulted in reads with an overall mean accuracy of 94% with accuracy increasing up to 97.5% for reads with greater than 10x coverage. It is also important to note that not all fragments are sequenced twice using the 1D^2^ technique. On a single flow cell with 1D^2^ chemistry, @volden_2018 obtained 1 million 1D reads and 50,000 1D^2^ reads. While other authors report higher ratios of 1D^2^ to 1D reads, this demonstrates that the output of 1D^2^ reads can be quite low. 
  
-<br>
-<center>
-
-![Rolling Circle Amplification to Concatomeric Consensus - R2C2. A fragment of cDNA is circularised with a DNA splint using Gibson assembly. Then, using rolling circle amplification, DNA polymerase creates a long chain containing multiple passes of the circular fragment. The resulting long fragment of DNA is then sequenced using nanoopore technology and the resulting read is split into subreads. These subreads are then combined into an accurate consensus sequence. Source: @volden_2018](images/R2C2.jpg){width=80%}
-
-</center>
-<br>
+```{r rca, echo=FALSE,fig.cap="\\label{fig:rca}Rolling Circle Amplification to Concatomeric Consensus - R2C2. A fragment of cDNA is circularised with a DNA splint using Gibson assembly. Then, using rolling circle amplification, DNA polymerase creates a long chain containing multiple passes of the circular fragment. The resulting long fragment of DNA is then sequenced using nanoopore technology and the resulting read is split into subreads. These subreads are then combined into an accurate consensus sequence.", fig.asp=0.5}
+library(png)
+library(grid)
+img <- readPNG("images/R2C2.png")
+ grid.raster(img)
+```
+Source: @volden_2018
 
 The initial outlay for a MinION starter kit is just \$1000 US with additional sequencing kits costing approximately $600 US, depending on the type of kit. As an example, the 1D^2^ sequencing kit typically yields 8+ Gb in 48 hours which, assuming 8Gb equates to 7.5c/kb [@ont_store]. 
 
@@ -163,17 +178,26 @@ There are a massive number of projects currently being undertaken involving the 
 
 Probably the most commonly cited metric of assembly quality is contig N50 [@kyriakidou_2018] where a contig N50 of 1Mbp implies that contigs of 1Mbp and greater comprise 50% of the total assembly size. However, this can be misleading for a number of reasons. Firstly, because it is calculated with respect to the assembly size and not the genome size, it is inherently biased. If a large portion of the genome is missing from the assembly, the contig N50 will appear more favourable than it actually is. Essentially contig N50 only gives an indication of the distribution of the contigs that are present and the term indication is used loosely as Contig N50 can be easily manipulated. By using more or less stringent filtering of short contigs, contig N50 can be artificially increased or reduced, respectively. It can also be increased by specifying less stringent requirements for the concatenation of contigs [@gurevich_2013]. In the extreme case, concatenation of all contigs would result in an assembly peppered with misassemblies but with a very high Contig N50, implying that the assembly is particularly good. For these reasons, contig N50 alone isn't enough to measure assembly quality. 
 
-<br>
-<center>
-
-![Cumulative Contig Length. Source: Adapted from @chakraborty_2016](images/cumulative_length_dist.png){width=80%}
-
-</center>
-<br>
-
 ## QUAST
 
-QUAST, Quality Assessment Tool for genome assemblies released in ?, improves on this by reporting contig Nx in addition to the total number of contigs, length of the largest contig, total length, GC content and the number of predicted genes in a de novo assembly where the length of the genome is unknown [@gurevich_2013]. While this does give a better indication of the data distribution, it still doesn't give any information regarding base quality or the likely completeness of the assembly. 
+QUAST, Quality Assessment Tool for genome assemblies released in ?, improves on this by reporting contig Nx in addition to the total number of contigs, length of the largest contig, total length, GC content and the number of predicted genes in a de novo assembly where the length of the genome is unknown [@gurevich_2013]. QUAST also produces a number of plots including a cumulative length plot (see Figure \ref{fig:cumulative} below for a manufactured example). While this information does give a better indication of the data distribution, it still doesn't give any information regarding base quality or the likely completeness of the assembly. 
+
+```{r cumulative, echo=FALSE, fig.cap="\\label{fig:cumulative}A Cumulative Length Plot gives a detailed breakdown of the distribution of assembly contigs and the height of the right most point indicates the total assembly size. Here, the blue line represents an assembly comprised primarily of longer contigs while the red line shows an assembly of the same length but comprised of much shorter contigs. ",out.extra='', fig.pos='H'}
+library(ggplot2)
+
+cumulative_length <- c(40,130,230,390,530,640,690,740,780,810,830,844,857,870,881,890,897,900,903,903)
+contig_index <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+bad_contigs <- c(0,0,0,0,	0,3,10,30,50,80,140,210,290,390,505,655,765,845,880,900)
+rice_contigs <- data.frame(cumulative_length, contig_index, bad_contigs)
+
+ggplot(rice_contigs, aes(x=contig_index))+
+  geom_line(aes(y=cumulative_length), color = "steelblue") +
+  geom_line(aes(y=bad_contigs), color = "red") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank()) + 
+  labs(x="Contig Index (contigs sorted largest to smallest)", y = "Cumulative Coverage (Mbp)", title = "Cumulative Length Plot") + theme_bw()
+
+```
 
 ## BUSCO
 
@@ -200,26 +224,55 @@ It is also worth investigating the methods proposed for assessing assembly quali
 
 # Generating an Assembly
 
-Factors contributing to final assembly quality include the choice of sequencing technology/technologies, the assembly workflow and the assembly tools themselves.  
-
 ## Sequencing Platform Selection
 
-There are countless different paths to generating a de novo assembly but all of them begin with at least one type of sequencing data. In the beginning, the human genome was sequenced using primarily Sanger sequencing techniques [@lander_2001] but the advent of Second Generation techniques and the associated high throughput has made sequencing on a much larger scale possible [@pollard_2018]. Sequencing by synthesis methods meant that a entire human genome could be sequenced in a day compared with years for the first human genome draft using Sanger techniques [@behjati_2013]. Illumina reads are accurate and well suited to sequencing non-repetitive regions of the genome but are less useful for the assembly of the more complex and repetitive regions [@pollard_2018; @sovi_2016], particularly when repetitive regions exceed the length of the template fragment. They are not well suited to the discovery of structural variants [@cretustancu_2017]] and are further limited by preferential amplification of certain fragments. Single Molecule Sequencing was developed next and overcame some of these shortfalls. Single Molecule Sequencing generates long reads which give context in extended repetitive regions and better enable the discovery of structural variants. Furthermore, the literature makes it very clear that the incorporation of at least some long reads into a de novo assembly greatly improves the final assembly quality when compared with using only short reads [@shin_2019; @jain_2018; @rhoads_2015]. 
+There are countless different paths to generating a de novo assembly but all of them begin with at least one type of sequencing data. In the beginning, the human genome was sequenced using primarily Sanger sequencing techniques [@lander_2001] but the advent of Second Generation techniques has made sequencing on a much larger scale possible due to higher throughput and reduced cost [@pollard_2018]. Sequencing by synthesis methods allowed a human genome to be sequenced in a day compared with years for the first human genome draft [@behjati_2013]. Illumina reads are accurate and well suited to sequencing non-repetitive regions of the genome but are less useful for the assembly of more complex and repetitive regions [@pollard_2018; @sovi_2016], particularly when repetitive regions exceed the length of the template fragment. They are not well suited to the discovery of structural variants [@cretustancu_2017]] and are further limited by preferential amplification of certain fragments. Single Molecule Sequencing was developed next and overcame some of these shortfalls while introducing new issues. Single Molecule Sequencing generates long reads which give context in extended repetitive regions and better enables the discovery of structural variants. Nanopore reads are cheap but of low quality while PacBio is more expensive and offers both long (?? kbp), low quality reads and long high quality Hifi reads. Furthermore, the literature makes it very clear that the incorporation of at least some long reads into a de novo assembly greatly improves the final assembly quality when compared with using only short reads [@shin_2019; @jain_2018; @rhoads_2015]. 
 
-## Assembly Workflow and Algorithms
+So, what mix of reads result in the best assembly? can ia nswer that here? 
 
-* write about different ways you can get an assembly from different data types
-* how the two main algorithms are different and what they are better for. 
-
-The two major classes of algorithms used in genome assembly are the Overlap-Layout-Consensus (OLC) and the deBrujn graph. The OLC algorithm was first employed in the assembly of Sanger reads but with the introduction of Second Generation sequencing techniques, the deBrujn graph was introduced as a 
+## Assembly Methods
 
 
-It's interesting to note that the first method listed above was developed primarily to overcome the fact that existing assembly algorithms (Overlap-Layout-Consensus, generally used for Sanger data and the deBrujn graph, developed for Illumina reads) were unable to cope with long, low quality reads that were typical of third generation sequencing technology. Correcting errors in long reads at the beginning of a workflow made it possible to use assembly algorithms originally designed for sanger sequencing reads [@ye_2016], in particular those utilising the Overlap-Layout-Consensus algorithm. For assembly of long reads, the OLC algorithm appears to result in higher quality assemblies than the deBruijn graph [@cherukuri_2016] with higher coverage, larger average contig lengths and less contigs.
 
-*It's interesting to note that the first method listed above was developed primarily to overcome the fact that existing assembly algorithms (Overlap-Layout-Consensus, generally used for Sanger data and the deBrujn graph, developed for Illumina reads) were unable to cope with long, low quality reads that were typical of third generation sequencing technology. Correcting errors in long reads at the beginning of a workflow made it possible to use assembly algorithms originally designed for sanger sequencing reads [@ye_2016], in particular those utilising the Overlap-Layout-Consensus algorithm. For assembly of long reads, the OLC algorithm appears to result in higher quality assemblies than the deBruijn graph [@cherukuri_2016] with higher coverage, larger average contig lengths and less contigs.*
+## Assembly Algorithms
+
+The two major classes of algorithms used in genome assembly are the Overlap-Layout-Consensus (OLC) and the de-Bruijn-Graph (dBG). The OLC algorithm was extensively used in the assembly of Sanger reads [@li_2012] while the dBG was relatively unknown in genome assembly until the development of second generation techniques where it really came into its own [@li_2012]. 
+
+The OLC algorithm is relatively intuitive and is detailed below in Figure \ref{fig:olc}. It consists of three main steps: 
+
+1) Find all overlaps between all reads
+2) Layout all of the reads and overlaps on a graph 
+3) Infer a consensus sequence from the graph 
+
+```{r olc, echo=FALSE,fig.cap="\\label{fig:olc}The Overlap-Layout-Consensus algorithm. Reads are provided and the overlaps between reads are identified with an all-to-all pairwise alignment comparison. Then, these reads are graphed where each node represents a read and edges represent overlaps between reads. Then, the algorithm finds multiple hamiltonian paths through the graph and takes the consensus of these paths which gives the final sequence.",out.extra='', fig.pos='H'}
+library(png)
+library(grid)
+img <- readPNG("images/olcAlgorithm.png")
+ grid.raster(img)
+```
+
+**Source: @commins_2009**
+
+The dBG algorithm is not quite as easy to understand (see Figure \ref{fig:dbg} below). 
+
+```{r dbg, echo=FALSE,fig.cap="\\label{fig:dbg}The deBruijn Graph method. Reads are cut up into k-mers and then split into a prefix and suffix with all but the last and first letter of the k-mer respectively. A de-Bruijn-Graph is then generated with all prefixes and suffixes as nodes and edges between two nodes labelled with the k-mer having that particular prefix and suffix. Finally, an eulerian path (each node is visited exactly once) through the graph is found which indicates the final assembled sequence.",out.extra='', fig.pos='H'}
+library(png)
+library(grid)
+img <- readPNG("images/debruijn.png")
+ grid.raster(img)
+```
+
+Source: @namiki_2012
+
+Figures \ref{fig:olc} and \ref{fig:dbg} above give a basic understanding of the algorithms underlying the OLC and dBG methods respectively but it is important to realise that there is additional complexity in implementations of these algorithms due to sequencing errors, repetitive regions, and sequencing heterozygous genomes or polyploids, among others. With respect to computational cost, the OLC algorithm is generally slower than the dBG due, in part, to the explicit all-to-all pairwise comparison of reads. The OLC algorithm is also slower due to the multiple sequence alignment required for generating the consensus sequence. This is a Hamiltonian path problem which is considered to be NP Complete (meaning that it can only be solved in polynomial time and hence, that the time required to solve this problem increases rapidly with the problem size) while the dBG algorithm uses an Eulerian path which is can be solved in linear time. **However, the OLC algorithm is better. **
+
+### Assembly Methods
+
+As mentioned earlier, the addition of at least some long reads to an assembly results in an increase in assembly quality and so only assembly methods meeting this criteria will be considered. 
+
+When Single Molecule Sequencing was first developed, existing tools were unable to cope with the resulting very long, low quality reads. To get around this, researchers introduced algorithms to correct errors at the beginning of the workflow so that tools originally designed for Sanger Sequencing reads could be repurposed [@ye_2016], in particular those utilising the OLC algorithm as it appears to result in higher quality assemblies than the deBruijn graph [@cherukuri_2016] with higher coverage, larger average contig lengths and less contigs. 
 
 *The de novo assembly of a genome using long reads can be done in a number of ways and the complexity of these workflows is somewhat dependent on the platform(s) selected for sequencing. For example, a simple workflow for the assembly of a genome using PacBio Hifi reads would require the generation of consensus reads and the assembly of these reads into the final genome [@chin_2019]. In comparison, a hybrid assembly incorporating both nanopore and Illumina reads could require assembly of the nanopore reads, polishing contigs, mapping the Illumina dataset to contigs and error correction of contigs using the Illumina reads [@nanoporetech_2016]. It should also be noted that hybrid assemblies can be completed in number of different ways, not limited to the following:*  
-
 
 
 - Short reads are used for error correction of long reads prior to assembly [@goodwin_2015]
@@ -228,9 +281,21 @@ It's interesting to note that the first method listed above was developed primar
 
 *The workflows discussed so far are all in relation to a single source of input data but hybrid approaches are common and can be very useful for managing costs while still obtaining a high quality assembly **(get a ref if possible)**. In addition to the workflows above, @giordano_2017 also investigated a few hybrid workflows using long reads for scaffolding a short read assembly. They tested npScarf, HybridSPAdes and SMIS, all with a SPAdes MiSeq assembly and found that npScarf resulted in the least contigs (21 for ONT and 22 for PacBio) and in the least processing time but that these contigs were heavily impacted by misassemblies. HybridSPAdes produced assemblies with the greatest reference coverage, the least mis-assemblies and the most genes but at the cost of CPU hours (for ONT, HybridSPAdes was 6 times slower than npScarf and 1.3 times slower than SMIS, for PacBio HybridSPAdes was 13 times slower than npScarf and 3 times slower than SMIS) [@giordano_2017]. Hybrid workflows tested by @minei_2018 include SPAdes and MaSuRCA and they found that SPAdes resulted in an assembly with quality similar to a short read only assembly while MaSuRCA performed very well with the highest assembly quality and less contigs than the reference. *
 
+## Resources Required to Generate a Genome Assembly
+
+Figure \ref{fig:flowchart} below details the essential steps necessary for generating a de novo assembly as well as some of the costs associated with each step. Managing these costs 
+
+```{r flowchart, echo=FALSE,fig.cap="\\label{fig:flow}Flowchart ",out.extra='', fig.pos='H',fig.asp=0.35}
+library(png)
+library(grid)
+img <- readPNG("images/Flowchart.png")
+ grid.raster(img)
+```
+
+
 # Workflow Reproducibility
 
-Science depends on researchers being able to replicate the work of others but unfortunately, this isn't always possible. @baker found in a survey of 1500 scientists that 70% of researchers had been unable to reproduce another scientist's experiment at some point while, even more worrying, 50% were unable to reproduce one of their own experiments. In bioinformatics, reproducibility refers specifically to being able to obtain the exact same results for an analysis using the original dataset and code but, even when the data and code are supplied, this isn't always possible [@kim_2018]. There are a plethora of different methods for helping to ensure workflow reproducibility but 
+Science depends on researchers being able to replicate the work of others but unfortunately, this isn't always possible. @baker found in a survey of 1500 scientists that 70% of researchers had been unable to reproduce another scientist's experiment at some point while, even more worrying, 50% were unable to reproduce one of their own experiments. In bioinformatics, reproducibility refers specifically to being able to obtain the exact same results for an analysis using the original dataset and code but, even when the data and code are supplied, this isn't always possible [@kim_2018]. There are a plethora of different methods for helping to ensure workflow reproducibility but workflow management systems appear to be particularly 
 
 
 *@kim_2018 suggest that the main barrier to reproducibility is the incompatibility among environments, software versions and different languages while @kulkarni_2018 attribute these issues to the short half-life of bioinformatics software, complexity of workflows, uncontrolled effects induced by changes to system libraries and the imprecision in workflow descriptions. To combat these difficulties, @kim_2018 recommend that researchers ensure their code is well written, well tested and made available in online repositories. They further suggest that a detailed step-by-step process in a Jupyter/IPython notebook or a ready-to-run Docker container should be provided to make reproduction attempts as easy as possible [@kim_2018]. The provision of a well documented Jupyter notebook would certainly be very useful in a reproduction attempt but version control is difficult in Jupyter notebook and it can be difficult to carry out extensive testing in that environment [@mueller_2018]. However, the notion of Docker containers is worth further investigation and leads us to workflow management systems. *
