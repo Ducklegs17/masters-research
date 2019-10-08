@@ -1071,7 +1071,7 @@ f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion}
 }
 @article{ont_2017,
 title = {The advantages of long reads for genome assembly},
-author = {, Oxford Nanopore Technologies},
+institution = {Oxford Nanopore Technologies},
 url = {https://nanoporetech.com/sites/default/files/s3/white-papers/{WGS\_Assembly\_white\_paper}.pdf?{submissionGuid}=40a7546b-9e51-42e7-bde9-b5ddef3c3512},
 year = {2017},
 month = {sep},
@@ -1241,7 +1241,7 @@ f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion}
 }
 @misc{pacbio_hifi,
 title = {SMRT Sequencing Modes},
-author = {Pacific Biosciences},
+institution = {Pacific Biosciences},
 url = {https://www.pacb.com/smrt-science/smrt-sequencing/smrt-sequencing-modes/},
 urldate = {2019-10-02},
 f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
@@ -1249,7 +1249,7 @@ type = {WEBSITE}
 }
 @misc{pacbio_smrt,
 title = {SMRT Sequencing},
-author = {Pacific Biosciences},
+institution = {Pacific Biosciences},
 url = {https://www.pacb.com/smrt-science/smrt-sequencing/},
 urldate = {2019-10-02},
 f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
@@ -1257,7 +1257,7 @@ type = {WEBSITE}
 }
 @article{minion_comp_requirements,
 title = {Minion Computer Requirements},
-author = {,},
+institution = {Oxford Nanopore Technologies},
 url = {https://nanoporetech.com/sites/default/files/s3/{MinION}-Computer-Requirements-{Mar17\_Final}.pdf},
 urldate = {2019-10-03},
 f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion}
@@ -1362,5 +1362,102 @@ pmid = {22821567},
 pmcid = {PMC3488206},
 f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
 abstract = {An important step in 'metagenomics' analysis is the assembly of multiple genomes from mixed sequence reads of multiple species in a microbial community. Most conventional pipelines use a single-genome assembler with carefully optimized parameters. A limitation of a single-genome assembler for de novo metagenome assembly is that sequences of highly abundant species are likely misidentified as repeats in a single genome, resulting in a number of small fragmented scaffolds. We extended a single-genome assembler for short reads, known as 'Velvet', to metagenome assembly, which we called '{MetaVelvet}', for mixed short reads of multiple species. Our fundamental concept was to first decompose a de Bruijn graph constructed from mixed short reads into individual sub-graphs, and second, to build scaffolds based on each decomposed de Bruijn sub-graph as an isolate species genome. We made use of two features, the coverage (abundance) difference and graph connectivity, for the decomposition of the de Bruijn graph. For simulated datasets, {MetaVelvet} succeeded in generating significantly higher N50 scores than any single-genome assemblers. {MetaVelvet} also reconstructed relatively low-coverage genome sequences as scaffolds. On real datasets of human gut microbial read data, {MetaVelvet} produced longer scaffolds and increased the number of predicted genes.}
+}
+@article{perkel_2019,
+title = {Workflow systems turn raw data into scientific knowledge.},
+author = {Perkel, Jeffrey M},
+pages = {149-150},
+url = {http://www.nature.com/articles/d41586-019-02619-z},
+year = {2019},
+month = {sep},
+urldate = {2019-09-03},
+journal = {Nature},
+volume = {573},
+number = {7772},
+issn = {0028-0836},
+doi = {10.1038/d41586-019-02619-z},
+pmid = {31477884},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion}
+}
+@article{wick_2019,
+title = {Performance of neural network basecalling tools for Oxford Nanopore sequencing.},
+author = {Wick, Ryan R and Judd, Louise M and Holt, Kathryn E},
+pages = {129},
+url = {https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1727-y},
+year = {2019},
+month = {jun},
+day = {24},
+urldate = {2019-08-23},
+journal = {Genome Biology},
+volume = {20},
+number = {1},
+issn = {1474-{760X}},
+doi = {10.1186/s13059-019-1727-y},
+pmid = {31234903},
+pmcid = {PMC6591954},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+abstract = {{BACKGROUND}: Basecalling, the computational process of translating raw electrical signal to nucleotide sequence, is of critical importance to the sequencing platforms produced by Oxford Nanopore Technologies ({ONT}). Here, we examine the performance of different basecalling tools, looking at accuracy at the level of bases within individual reads and at majority-rule consensus basecalls in an assembly. We also investigate some additional aspects of basecalling: training using a taxon-specific dataset, using a larger neural network model and improving consensus basecalls in an assembly by additional signal-level analysis with Nanopolish. {RESULTS}: Training basecallers on taxon-specific data results in a significant boost in consensus accuracy, mostly due to the reduction of errors in methylation motifs. A larger neural network is able to improve both read and consensus accuracy, but at a cost to speed. Improving consensus sequences ('polishing') with Nanopolish somewhat negates the accuracy differences in basecallers, but pre-polish accuracy does have an effect on post-polish accuracy. {CONCLUSIONS}: Basecalling accuracy has seen significant improvements over the last 2 years. The current version of {ONT}'s Guppy basecaller performs well overall, with good accuracy and fast performance. If higher accuracy is required, users should consider producing a custom model using a larger neural network and/or training data from the same species.}
+}
+@misc{washington_website,
+title = {University of Washington {PacBio} Sequencing Services},
+institution = {University of Washington},
+url = {https://pacbio.gs.washington.edu/},
+urldate = {2019-10-07},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+type = {WEBSITE}
+}
+@misc{pacbio_sequel,
+title = {New Software, Polymerase for Sequel System Boost Throughput and Affordability - {PacBio}},
+url = {https://www.pacb.com/blog/new-software-polymerase-sequel-system-boost-throughput-affordability/},
+year = {2018},
+institution = {Pacific Biosciences},
+urldate = {2019-10-07},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+type = {WEBSITE}
+}
+@misc{pacbio_sequel2,
+title = {Latest System Release - Sequel {II} System- {PacBio}},
+url = {https://www.pacb.com/products-and-services/sequel-system/latest-system-release/\#{SequelIISystemData}},
+institution = {Pacific Biosciences},
+urldate = {2019-10-07},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+type = {WEBSITE}
+}
+@misc{dna_link,
+title = {{PacBio} (Sequel {II} / Sequel / {RS} {II}) – {DNA} Link Sequencing Lab},
+url = {https://www.dnalinkseqlab.com/pacbio-sequel-rsii/},
+urldate = {2019-10-08},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+type = {WEBSITE}
+}
+@misc{ont_prices,
+title = {Product comparison},
+url = {https://nanoporetech.com/products/comparison},
+urldate = {2019-10-08},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+type = {WEBSITE}
+}
+@misc{sanger_length,
+title = {{NSF} :: services},
+url = {https://www.neuromicssupportfacility.be/service/sanger\_details},
+urldate = {2019-10-08},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+type = {WEBSITE}
+}
+@article{shendure_2008,
+title = {Next-generation {DNA} sequencing.},
+author = {Shendure, Jay and Ji, Hanlee},
+pages = {1135-1145},
+url = {http://dx.doi.org/10.1038/nbt1486},
+year = {2008},
+month = {oct},
+urldate = {2019-10-08},
+journal = {Nature Biotechnology},
+volume = {26},
+number = {10},
+doi = {10.1038/nbt1486},
+pmid = {18846087},
+f1000-projects = {{ARP} and {PacBio} Hifi + {ONT} Minion},
+abstract = {{DNA} sequence represents a single format onto which a broad range of biological phenomena can be projected for high-throughput data collection. Over the past three years, massively parallel {DNA} sequencing platforms have become widely available, reducing the cost of {DNA} sequencing by over two orders of magnitude, and democratizing the field by putting the sequencing capacity of a major genome center in the hands of individual investigators. These new technologies are rapidly evolving, and near-term challenges include the development of robust protocols for generating sequencing libraries, building effective new approaches to data-analysis, and often a rethinking of experimental design. Next-generation {DNA} sequencing has the potential to dramatically accelerate biological and biomedical research, by enabling the comprehensive analysis of genomes, transcriptomes and interactomes to become inexpensive, routine and widespread, rather than requiring significant production-scale efforts.}
 }
 
